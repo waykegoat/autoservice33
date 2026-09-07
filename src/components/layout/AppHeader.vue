@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import BaseButton from '../ui/BaseButton.vue'
 import { Phone, Clock, MapPin, Menu, X } from 'lucide-vue-next'
 import { companyConfig } from '../../data/company'
+import logoSvg from '../../assets/logo.svg'
 
 defineEmits<{
   (e: 'open-booking'): void
@@ -46,7 +47,7 @@ function scroll(href: string) {
     <div class="hdr__main">
       <div class="container hdr__row">
         <a href="#" class="brand" @click.prevent="scroll('#app')">
-          <img src="/logo.svg" alt="Forsun Motors" class="brand__logo-img" />
+          <img :src="logoSvg" alt="Forsun Motors" class="brand__logo-img" />
           <span class="brand__region">33 RUS</span>
         </a>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { companyConfig } from '../../data/company'
 import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
+import logoSvg from '../../assets/logo.svg'
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
     <div class="container ftr__grid">
       <div class="ftr__col ftr__brand">
         <div class="ftr__logo-wrap">
-          <img src="/logo.svg" alt="Forsun Motors" class="ftr__logo-img" />
+          <img :src="logoSvg" alt="Forsun Motors" class="ftr__logo-img" />
           <span class="ftr__region-pill">33 RUS</span>
         </div>
         <p class="ftr__desc">
