@@ -97,20 +97,22 @@ const priceRows = [
 }
 
 .price-table th {
-  background: var(--bg-2);
+  background: var(--black);
+  color: #ffffff;
   padding: 16px 20px;
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .84rem;
-  letter-spacing: .05em;
-  color: var(--muted);
-  border-bottom: 1px solid var(--line);
+  font-size: .86rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  border-bottom: 2px solid var(--accent);
 }
 
 .price-table td {
   padding: 16px 20px;
   border-bottom: 1px solid var(--line);
   font-size: .92rem;
+  color: var(--text);
 }
 
 .price-table tr:last-child td {
@@ -118,12 +120,12 @@ const priceRows = [
 }
 
 .price-table tr:hover td {
-  background: rgba(255, 106, 26, .03);
+  background: var(--accent-subtle);
 }
 
 .td-service strong {
   font-weight: 600;
-  color: var(--text);
+  color: var(--black);
 }
 
 .td-vehicle {
@@ -138,19 +140,22 @@ const priceRows = [
 
 .td-price {
   font-family: var(--font-head);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
   white-space: nowrap;
 }
 
 .table-btn {
-  padding: 6px 14px;
+  padding: 8px 16px;
   background: var(--surface-2);
   border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--black);
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .78rem;
+  font-size: .8rem;
+  font-weight: 600;
   letter-spacing: .04em;
   transition: all .16s ease;
   white-space: nowrap;
@@ -158,7 +163,7 @@ const priceRows = [
 
 .table-btn:hover {
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   border-color: var(--accent);
 }
 

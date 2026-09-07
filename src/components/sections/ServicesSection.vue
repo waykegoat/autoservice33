@@ -96,26 +96,27 @@ defineEmits<{
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(255, 106, 26, .12);
+  background: var(--accent-subtle);
   color: var(--accent);
 }
 
 .svc__badge {
   font-family: var(--font-head);
   font-size: .75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .05em;
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 4px;
-  background: var(--surface-2);
-  border: 1px solid var(--line-2);
-  color: var(--accent);
+  background: var(--black);
+  color: #ffffff;
 }
 
 .svc__title {
   font-size: 1.25rem;
   margin-bottom: 10px;
   line-height: 1.2;
+  color: var(--black);
 }
 
 .svc__summary {
@@ -163,7 +164,8 @@ defineEmits<{
 .svc__price {
   font-family: var(--font-head);
   color: var(--accent);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .svc__time {
@@ -179,21 +181,22 @@ defineEmits<{
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 14px;
+  padding: 11px 16px;
   background: var(--surface-2);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--black);
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .82rem;
+  font-size: .84rem;
+  font-weight: 600;
   letter-spacing: .05em;
   transition: all .18s ease;
 }
 
 .svc__btn:hover {
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   border-color: var(--accent);
 }
 

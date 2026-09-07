@@ -94,27 +94,29 @@ defineEmits<{
 }
 
 .symp-tag--critical {
-  background: rgba(255, 106, 26, .18);
-  color: var(--accent);
-  border: 1px solid rgba(255, 106, 26, .35);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .symp-tag--high {
-  background: rgba(255, 207, 63, .14);
-  color: var(--warn);
-  border: 1px solid rgba(255, 207, 63, .3);
+  background: var(--black);
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .symp-tag--medium {
-  background: rgba(74, 148, 214, .14);
-  color: var(--steel);
-  border: 1px solid rgba(74, 148, 214, .3);
+  background: var(--surface-2);
+  color: var(--black);
+  border: 1px solid var(--line-2);
+  font-weight: 700;
 }
 
 .symp-title {
   font-size: 1.25rem;
   margin-bottom: 10px;
   line-height: 1.25;
+  color: var(--black);
 }
 
 .symp-desc {
@@ -127,7 +129,7 @@ defineEmits<{
 
 .symp-danger {
   background: var(--bg-2);
-  border-left: 2px solid var(--accent);
+  border-left: 3px solid var(--accent);
   padding: 10px 14px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   margin-bottom: 20px;
@@ -136,6 +138,7 @@ defineEmits<{
 .danger-lbl {
   font-family: var(--font-head);
   font-size: .74rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .06em;
   color: var(--accent);
@@ -154,21 +157,22 @@ defineEmits<{
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 14px;
+  padding: 11px 16px;
   background: var(--surface-2);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--black);
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .82rem;
+  font-size: .84rem;
+  font-weight: 600;
   letter-spacing: .05em;
   transition: all .16s ease;
 }
 
 .symp-action:hover {
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   border-color: var(--accent);
 }
 

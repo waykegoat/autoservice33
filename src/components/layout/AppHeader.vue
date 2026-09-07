@@ -83,8 +83,8 @@ function scroll(href: string) {
 }
 
 .hdr__top {
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--line);
+  background: var(--black);
+  border-bottom: 1px solid var(--line-dark);
   font-size: .82rem;
 }
 
@@ -92,14 +92,20 @@ function scroll(href: string) {
   display: flex;
   gap: 26px;
   align-items: center;
-  height: 38px;
-  color: var(--muted);
+  height: 36px;
+  color: var(--text-inverse-muted);
 }
 
 .hdr__util {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  color: #c2c9d6;
+  transition: color .16s ease;
+}
+
+.hdr__util:hover {
+  color: #ffffff;
 }
 
 .hdr__ic {
@@ -111,16 +117,17 @@ function scroll(href: string) {
 }
 
 .hdr__main {
-  background: rgba(11, 13, 18, .95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .hdr__row {
   display: flex;
   align-items: center;
   gap: 24px;
-  height: 74px;
+  height: 76px;
 }
 
 .brand {
@@ -131,7 +138,7 @@ function scroll(href: string) {
 }
 
 .brand__logo-img {
-  height: 46px;
+  height: 48px;
   width: auto;
   max-width: 220px;
   object-fit: contain;
@@ -145,7 +152,7 @@ function scroll(href: string) {
   letter-spacing: .08em;
   background: var(--accent);
   color: #ffffff;
-  padding: 3px 7px;
+  padding: 4px 8px;
   border-radius: 4px;
   line-height: 1;
 }
@@ -159,17 +166,18 @@ function scroll(href: string) {
 .nav__link {
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .92rem;
+  font-size: .94rem;
+  font-weight: 600;
   letter-spacing: .03em;
-  color: var(--muted);
-  padding: 8px 12px;
+  color: var(--text);
+  padding: 8px 14px;
   border-radius: var(--radius-sm);
   transition: color .18s, background .18s;
 }
 
 .nav__link:hover {
-  color: var(--text);
-  background: rgba(222, 33, 39, .1);
+  color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .hdr__cta {
@@ -207,8 +215,9 @@ function scroll(href: string) {
     flex-direction: column;
     gap: 2px;
     padding: 14px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
+    background: #ffffff;
+    border-bottom: 2px solid var(--accent);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
     transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;

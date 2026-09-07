@@ -64,19 +64,19 @@ const trust = [
 <style scoped>
 .hero {
   position: relative;
-  min-height: 84vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--bg);
+  background: linear-gradient(135deg, #ffffff 0%, #f7f8fa 100%);
 }
 
 .hero__overlay {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 85% 40%, rgba(255, 106, 26, 0.09) 0%, transparent 70%),
-    linear-gradient(90deg, rgba(13, 15, 19, 1) 0%, rgba(13, 15, 19, 0.92) 55%, rgba(13, 15, 19, 0.7) 100%);
+    radial-gradient(ellipse 60% 50% at 85% 40%, rgba(222, 33, 39, 0.06) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(245, 247, 250, 0.6) 100%);
   pointer-events: none;
 }
 
@@ -88,13 +88,14 @@ const trust = [
 
 .hero__title {
   margin: 20px 0 22px;
+  color: var(--black);
 }
 
 .hero__lead {
-  max-width: 580px;
+  max-width: 600px;
   color: var(--muted);
   font-size: 1.15rem;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .hero__actions {
@@ -116,9 +117,10 @@ const trust = [
   gap: 10px;
   font-family: var(--font-head);
   text-transform: uppercase;
-  font-size: .88rem;
+  font-size: .9rem;
+  font-weight: 600;
   letter-spacing: .03em;
-  color: var(--text);
+  color: var(--black);
 }
 
 .hero__trust-ic {
@@ -134,17 +136,19 @@ const trust = [
   display: none;
   align-items: center;
   gap: 14px;
-  color: var(--text);
-  padding: 12px 18px;
-  background: rgba(23, 27, 34, 0.85);
-  border: 1px solid var(--line);
+  color: var(--black);
+  padding: 14px 20px;
+  background: #ffffff;
+  border: 2px solid var(--black);
   border-radius: var(--radius-sm);
-  backdrop-filter: blur(8px);
-  transition: border-color .2s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  transition: all .2s ease;
 }
 
 .hero__phone:hover {
   border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(222, 33, 39, 0.15);
 }
 
 .hero__phone :deep(svg) {
@@ -153,18 +157,20 @@ const trust = [
 
 .hero__phone span {
   font-family: var(--font-head);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
+  font-weight: 700;
   line-height: 1.1;
   display: block;
 }
 
 .hero__phone em {
   display: block;
-  color: var(--dim);
+  color: var(--muted);
   font-size: .74rem;
   font-style: normal;
   text-transform: uppercase;
   letter-spacing: .08em;
+  font-weight: 600;
 }
 
 .hero__hazard {
@@ -172,8 +178,8 @@ const trust = [
   left: 0;
   right: 0;
   bottom: 0;
-  height: 3px;
-  opacity: 0.7;
+  height: 4px;
+  background: var(--hazard);
 }
 
 @media (min-width: 1100px) {

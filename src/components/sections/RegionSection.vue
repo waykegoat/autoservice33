@@ -85,10 +85,10 @@ defineEmits<{
 
 <style scoped>
 .transit-banner {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--black);
+  border: 1px solid var(--line-dark);
   border-radius: var(--radius);
-  border-left: 4px solid var(--accent);
+  border-left: 5px solid var(--accent);
   padding: 36px 32px;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -110,23 +110,25 @@ defineEmits<{
   font-size: .78rem;
   font-weight: 700;
   letter-spacing: .06em;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
 }
 
 .road-tag--m7 {
-  background: #1e3a66;
+  background: var(--accent);
   color: #ffffff;
 }
 
 .road-tag--m12 {
-  background: #25663d;
+  background: #1c202a;
   color: #ffffff;
+  border: 1px solid #2e3444;
 }
 
 .transit-tag {
   font-family: var(--font-head);
   font-size: .75rem;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--accent);
   letter-spacing: .08em;
@@ -134,11 +136,12 @@ defineEmits<{
 
 .transit-title {
   font-size: 1.45rem;
+  color: #ffffff;
   margin-bottom: 10px;
 }
 
 .transit-desc {
-  color: var(--muted);
+  color: #a0a9ba;
   font-size: .94rem;
   max-width: 640px;
   line-height: 1.55;
@@ -149,8 +152,8 @@ defineEmits<{
   align-items: center;
   gap: 14px;
   padding: 16px 22px;
-  background: var(--surface-2);
-  border: 1px solid var(--line-2);
+  background: #171a22;
+  border: 1px solid #292f3d;
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: border-color .18s;
@@ -162,14 +165,15 @@ defineEmits<{
 
 .phone-num {
   font-family: var(--font-head);
-  font-size: 1.25rem;
-  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
   display: block;
 }
 
 .phone-lbl {
   font-size: .74rem;
-  color: var(--dim);
+  color: #8892a4;
   text-transform: uppercase;
   display: block;
   margin-top: 2px;

@@ -80,7 +80,8 @@ import { Star, MapPin } from 'lucide-vue-next'
 .rev-name {
   font-family: var(--font-head);
   font-size: 1.15rem;
-  color: var(--text);
+  font-weight: 600;
+  color: var(--black);
   letter-spacing: .02em;
 }
 
@@ -115,7 +116,8 @@ import { Star, MapPin } from 'lucide-vue-next'
 
 .rev-car-tag strong {
   font-size: .88rem;
-  color: var(--text);
+  font-weight: 600;
+  color: var(--black);
 }
 
 .rev-car-tag span {
@@ -125,11 +127,10 @@ import { Star, MapPin } from 'lucide-vue-next'
 
 .rev-text {
   font-size: .94rem;
-  color: var(--muted);
+  color: var(--text-muted);
   line-height: 1.6;
   margin-bottom: 16px;
   flex-grow: 1;
-  font-style: italic;
 }
 
 .rev-date {

@@ -1,30 +1,49 @@
 :root {
-  --bg: #0b0d12;
-  --bg-2: #10131a;
-  --surface: #151822;
-  --surface-2: #1b202c;
-  --line: #262c3b;
-  --line-2: #343c4f;
-  --text: #f0f3f8;
-  --muted: #9aa5b8;
-  --dim: #606b7d;
+  /* Strict White / Black / Red Palette */
+  --bg: #ffffff;
+  --bg-2: #f5f7fa;
+  --bg-dark: #0e1014;
+  --surface: #ffffff;
+  --surface-2: #f0f2f6;
+  --surface-dark: #0e1014;
+  --surface-dark-2: #161920;
 
-  /* Palette from FORSUN MOTORS logo */
+  --line: #e4e7ee;
+  --line-2: #d0d5e2;
+  --line-dark: #222632;
+  --line-dark-2: #2d3342;
+
+  --text: #0e1014;
+  --text-muted: #525a6a;
+  --text-dim: #848e9f;
+  --text-inverse: #ffffff;
+  --text-inverse-muted: #a0a8b7;
+
+  /* Backward-compatible aliases */
+  --muted: #525a6a;
+  --dim: #848e9f;
+
+  /* Brand Colors from FORSUN MOTORS Logo */
   --accent: #de2127;
-  --accent-2: #f03a40;
-  --accent-d: #b81419;
-  --accent-glow: rgba(222, 33, 39, 0.45);
-  --navy: #19172c;
-  --steel: #4a94d6;
-  --success: #37c98a;
-  --warn: #ffcf3f;
+  --accent-2: #f02c33;
+  --accent-d: #b51318;
+  --accent-glow: rgba(222, 33, 39, 0.35);
+  --accent-subtle: rgba(222, 33, 39, 0.08);
+
+  --black: #0e1014;
+  --white: #ffffff;
+
+  /* Industrial Hazard Stripes (Red and Black) */
+  --hazard: repeating-linear-gradient(45deg, #de2127 0 14px, #0e1014 14px 28px);
 
   --font-head: 'Oswald', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
   --container: 1200px;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 20px 45px -20px rgba(0, 0, 0, .7);
-  --shadow-accent: 0 14px 34px -14px var(--accent-glow);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow: 0 12px 32px -8px rgba(14, 16, 20, 0.08);
+  --shadow-dark: 0 20px 45px -20px rgba(0, 0, 0, 0.7);
+  --shadow-accent: 0 8px 24px -6px var(--accent-glow);
 }

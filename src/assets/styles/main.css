@@ -79,7 +79,7 @@ h3 {
 }
 
 .hazard {
-  background-image: repeating-linear-gradient(45deg, var(--accent) 0 14px, #0b0d12 14px 28px);
+  background-image: var(--hazard);
 }
 
 .eyebrow {

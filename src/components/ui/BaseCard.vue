@@ -15,22 +15,24 @@ defineProps<{ interactive?: boolean; accent?: boolean }>()
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
+  box-shadow: var(--shadow-sm);
 }
 
 .card--interactive {
-  transition: transform .2s ease, border-color .2s ease;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
 .card--interactive:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: var(--line-2);
+  box-shadow: var(--shadow);
 }
 
 .card--accent::before {
   content: '';
   position: absolute;
   inset: 0 auto 0 0;
-  width: 3px;
+  width: 4px;
   background: var(--accent);
 }
 </style>

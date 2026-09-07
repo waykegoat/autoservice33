@@ -70,13 +70,14 @@ const tag = computed(() => (props.href ? 'a' : 'button'))
 
 .btn--primary {
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   box-shadow: var(--shadow-accent);
 }
 
 .btn--primary:hover {
   background: var(--accent-2);
   transform: translateY(-2px);
+  color: #ffffff;
 }
 
 .btn--primary:active {
@@ -84,14 +85,17 @@ const tag = computed(() => (props.href ? 'a' : 'button'))
 }
 
 .btn--outline {
-  border-color: var(--line-2);
-  color: var(--text);
+  border: 2px solid var(--black);
+  color: var(--black);
   background: transparent;
+  font-weight: 600;
 }
 
 .btn--outline:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
 .btn--ghost {

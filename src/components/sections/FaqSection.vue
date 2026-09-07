@@ -62,11 +62,13 @@ function toggle(id: string) {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color .18s;
+  box-shadow: var(--shadow-sm);
+  transition: border-color .18s, box-shadow .18s;
 }
 
 .faq-box--active {
   border-color: var(--accent);
+  box-shadow: var(--shadow);
 }
 
 .faq-q {
@@ -79,8 +81,9 @@ function toggle(id: string) {
   text-align: left;
   background: none;
   border: none;
-  color: var(--text);
+  color: var(--black);
   font-family: var(--font-head);
+  font-weight: 600;
   font-size: 1.15rem;
   letter-spacing: .02em;
 }
@@ -98,7 +101,7 @@ function toggle(id: string) {
 
 .faq-a {
   padding: 0 24px 22px;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: .94rem;
   line-height: 1.65;
   border-top: 1px solid var(--line);

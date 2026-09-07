@@ -204,6 +204,8 @@ function submit() {
 
 .info-title {
   font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--black);
   margin-bottom: 6px;
 }
 
@@ -217,11 +219,12 @@ function submit() {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 12px;
+  padding: 8px 14px;
   background: var(--surface-2);
   border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--black);
+  font-weight: 500;
   font-size: .82rem;
   transition: all .16s ease;
 }
@@ -233,7 +236,8 @@ function submit() {
 
 .phone-link {
   font-family: var(--font-head);
-  font-size: 1.7rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: var(--accent);
   display: block;
   margin-bottom: 8px;
@@ -273,13 +277,13 @@ function submit() {
 
 .msg-btn--wa {
   background: rgba(37, 211, 102, .12);
-  color: #25d366;
+  color: #1f9d4d;
   border: 1px solid rgba(37, 211, 102, .3);
 }
 
 .msg-btn--tg {
   background: rgba(0, 136, 204, .12);
-  color: #0088cc;
+  color: #0077b3;
   border: 1px solid rgba(0, 136, 204, .3);
 }
 
@@ -289,10 +293,13 @@ function submit() {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 36px;
+  box-shadow: var(--shadow);
 }
 
 .form-head {
   font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--black);
   margin-bottom: 6px;
 }
 
@@ -316,25 +323,27 @@ function submit() {
 
 .input-lbl {
   font-family: var(--font-head);
-  font-size: .8rem;
+  font-size: .82rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .05em;
-  color: var(--muted);
+  color: var(--black);
 }
 
 .txt-input {
-  background: var(--bg);
-  border: 1px solid var(--line);
+  background: #ffffff;
+  border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
   color: var(--text);
   font-size: .94rem;
-  transition: border-color .16s ease;
+  transition: all .16s ease;
 }
 
 .txt-input:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .txt-area {
@@ -354,7 +363,7 @@ function submit() {
   height: 54px;
   border-radius: 50%;
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 16px;

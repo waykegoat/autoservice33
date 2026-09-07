@@ -61,12 +61,14 @@ const steps = [
   border: 1px solid var(--line);
   border-radius: var(--radius);
   border-top: 3px solid var(--accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .proc__num {
   font-family: var(--font-head);
   font-size: 2.4rem;
-  color: var(--line-2);
+  font-weight: 700;
+  color: var(--black);
   line-height: 1;
   display: block;
   margin-bottom: 12px;
@@ -74,6 +76,8 @@ const steps = [
 
 .proc__title {
   font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--black);
   margin-bottom: 8px;
   line-height: 1.2;
 }

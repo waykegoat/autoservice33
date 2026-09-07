@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { companyConfig } from '../../data/company'
 import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
-import logoSvg from '../../assets/logo.svg'
+import logoDarkSvg from '../../assets/logo-dark.svg'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import logoSvg from '../../assets/logo.svg'
     <div class="container ftr__grid">
       <div class="ftr__col ftr__brand">
         <div class="ftr__logo-wrap">
-          <img :src="logoSvg" alt="Forsun Motors" class="ftr__logo-img" />
+          <img :src="logoDarkSvg" alt="Forsun Motors" class="ftr__logo-img" />
           <span class="ftr__region-pill">33 RUS</span>
         </div>
         <p class="ftr__desc">
@@ -68,14 +68,14 @@ import logoSvg from '../../assets/logo.svg'
 
 <style scoped>
 .ftr {
-  background: var(--bg-2);
-  border-top: 1px solid var(--line);
+  background: var(--black);
+  border-top: none;
   margin-top: auto;
 }
 
 .ftr__stripe {
   height: 4px;
-  opacity: .85;
+  background: var(--hazard);
 }
 
 .ftr__grid {
@@ -93,9 +93,9 @@ import logoSvg from '../../assets/logo.svg'
 }
 
 .ftr__logo-img {
-  height: 40px;
+  height: 44px;
   width: auto;
-  max-width: 200px;
+  max-width: 210px;
   object-fit: contain;
   display: block;
 }
@@ -107,17 +107,17 @@ import logoSvg from '../../assets/logo.svg'
   letter-spacing: .08em;
   background: var(--accent);
   color: #ffffff;
-  padding: 2px 6px;
+  padding: 3px 7px;
   border-radius: 4px;
   line-height: 1;
 }
 
 .ftr__desc {
-  color: var(--muted);
-  margin: 12px 0 20px;
+  color: #98a2b3;
+  margin: 14px 0 22px;
   font-size: .92rem;
   max-width: 320px;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .ftr__socials {
@@ -126,36 +126,47 @@ import logoSvg from '../../assets/logo.svg'
 }
 
 .ftr__socials a {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--line-2);
+  width: 42px;
+  height: 42px;
+  background: #171a22;
+  border: 1px solid #292f3d;
   border-radius: 8px;
   display: grid;
   place-items: center;
-  color: var(--muted);
+  color: #c0c7d5;
   font-size: .88rem;
   font-family: var(--font-head);
   font-weight: 700;
-  transition: .18s;
+  transition: all .18s;
   text-decoration: none;
 }
 
 .ftr__socials a:hover {
-  color: var(--accent);
+  color: #ffffff;
+  background: var(--accent);
   border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .ftr__title {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #ffffff;
   margin-bottom: 18px;
-  letter-spacing: .03em;
 }
 
 .ftr__links li,
 .ftr__contacts li {
   margin-bottom: 11px;
-  color: var(--muted);
+  color: #98a2b3;
   font-size: .92rem;
+}
+
+.ftr__links a {
+  transition: color .16s ease;
 }
 
 .ftr__links a:hover {
@@ -167,6 +178,7 @@ import logoSvg from '../../assets/logo.svg'
   align-items: flex-start;
   gap: 9px;
   line-height: 1.4;
+  color: #b5becd;
 }
 
 .ftr__contacts :deep(svg) {
@@ -177,9 +189,9 @@ import logoSvg from '../../assets/logo.svg'
 .ftr__bottom {
   display: flex;
   justify-content: space-between;
-  padding: 22px 24px;
-  border-top: 1px solid var(--line);
-  color: var(--dim);
+  padding: 24px 24px;
+  border-top: 1px solid #1c202a;
+  color: #6c7688;
   font-size: .85rem;
 }
 

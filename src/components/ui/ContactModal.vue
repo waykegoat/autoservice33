@@ -128,16 +128,17 @@ function submit() {
 .modal-box {
   width: 100%;
   max-width: 480px;
-  background: var(--surface);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
 }
 
 .modal-stripe {
   height: 4px;
+  background: var(--hazard);
 }
 
 .modal-close {
@@ -148,8 +149,8 @@ function submit() {
   height: 36px;
   border-radius: var(--radius-sm);
   background: var(--surface-2);
-  border: 1px solid var(--line);
-  color: var(--muted);
+  border: 1px solid var(--line-2);
+  color: var(--black);
   display: grid;
   place-items: center;
   transition: all .16s ease;
@@ -166,6 +167,8 @@ function submit() {
 
 .modal-title {
   font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--black);
   margin-bottom: 6px;
 }
 
@@ -190,25 +193,27 @@ function submit() {
 
 .field-lbl {
   font-family: var(--font-head);
-  font-size: .78rem;
+  font-size: .82rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .05em;
-  color: var(--muted);
+  color: var(--black);
 }
 
 .field-in {
-  background: var(--bg);
-  border: 1px solid var(--line);
+  background: #ffffff;
+  border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
-  color: var(--text);
+  color: var(--black);
   font-size: .94rem;
-  transition: border-color .16s ease;
+  transition: all .16s ease;
 }
 
 .field-in:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .field-area {
@@ -225,7 +230,8 @@ function submit() {
 .direct-phone {
   display: block;
   font-family: var(--font-head);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--accent);
   margin-top: 2px;
 }
@@ -240,7 +246,7 @@ function submit() {
   height: 54px;
   border-radius: 50%;
   background: var(--accent);
-  color: #10120f;
+  color: #ffffff;
   display: inline-grid;
   place-items: center;
   font-size: 1.6rem;

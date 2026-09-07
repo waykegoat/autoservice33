@@ -16,8 +16,8 @@ import { stats } from '../../data/company'
 
 <style scoped>
 .stats {
-  background: var(--surface);
-  border-block: 1px solid var(--line);
+  background: var(--black);
+  border-bottom: 2px solid var(--accent);
 }
 
 .stats__grid {
@@ -28,7 +28,7 @@ import { stats } from '../../data/company'
 }
 
 .stats__grid > * + * {
-  border-left: 1px solid var(--line);
+  border-left: 1px solid var(--line-dark);
   padding-left: 24px;
 }
 
@@ -39,7 +39,8 @@ import { stats } from '../../data/company'
 
 .stat__val {
   font-family: var(--font-head);
-  font-size: 2.6rem;
+  font-size: 2.8rem;
+  font-weight: 700;
   color: var(--accent);
   line-height: 1;
   margin-bottom: 6px;
@@ -49,13 +50,13 @@ import { stats } from '../../data/company'
   font-family: var(--font-head);
   font-size: 1.05rem;
   text-transform: uppercase;
-  color: var(--text);
+  color: #ffffff;
   margin-bottom: 4px;
   letter-spacing: .02em;
 }
 
 .stat__sub {
-  color: var(--muted);
+  color: #9aa3b4;
   font-size: .86rem;
   line-height: 1.45;
 }
