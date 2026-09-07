@@ -1,16 +1,20 @@
 :root {
-  --bg: #0d0f13;
-  --bg-2: #12151b;
-  --surface: #171b22;
-  --surface-2: #1e232c;
-  --line: #2a3039;
-  --line-2: #363d48;
-  --text: #eef1f5;
-  --muted: #9aa3b0;
-  --dim: #646c78;
-  --accent: #ff6a1a;
-  --accent-2: #ff8a3d;
-  --accent-d: #d6520c;
+  --bg: #0b0d12;
+  --bg-2: #10131a;
+  --surface: #151822;
+  --surface-2: #1b202c;
+  --line: #262c3b;
+  --line-2: #343c4f;
+  --text: #f0f3f8;
+  --muted: #9aa5b8;
+  --dim: #606b7d;
+
+  /* Palette from FORSUN MOTORS logo */
+  --accent: #de2127;
+  --accent-2: #f03a40;
+  --accent-d: #b81419;
+  --accent-glow: rgba(222, 33, 39, 0.45);
+  --navy: #19172c;
   --steel: #4a94d6;
   --success: #37c98a;
   --warn: #ffcf3f;
@@ -22,5 +26,5 @@
   --radius: 12px;
   --radius-sm: 8px;
   --shadow: 0 20px 45px -20px rgba(0, 0, 0, .7);
-  --shadow-accent: 0 14px 34px -14px rgba(255, 106, 26, .55);
+  --shadow-accent: 0 14px 34px -14px var(--accent-glow);
 }

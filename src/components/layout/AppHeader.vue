@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BaseButton from '../ui/BaseButton.vue'
-import { Phone, Clock, MapPin, Wrench, Menu, X } from 'lucide-vue-next'
+import { Phone, Clock, MapPin, Menu, X } from 'lucide-vue-next'
 import { companyConfig } from '../../data/company'
 
 defineEmits<{
@@ -46,8 +46,8 @@ function scroll(href: string) {
     <div class="hdr__main">
       <div class="container hdr__row">
         <a href="#" class="brand" @click.prevent="scroll('#app')">
-          <span class="brand__mark"><Wrench :size="22" /></span>
-          <span class="brand__text">ФОРСУНКА<b>33</b><em>ДИЗЕЛЬНЫЙ СЕРВИС • ВЛАДИМИР</em></span>
+          <img src="/logo.svg" alt="Forsun Motors" class="brand__logo-img" />
+          <span class="brand__region">33 RUS</span>
         </a>
 
         <nav class="nav" :class="{ 'nav--open': open }">
@@ -110,7 +110,7 @@ function scroll(href: string) {
 }
 
 .hdr__main {
-  background: rgba(13, 15, 19, .94);
+  background: rgba(11, 13, 18, .95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -126,38 +126,27 @@ function scroll(href: string) {
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
 }
 
-.brand__mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: var(--accent);
-  color: #10120f;
-}
-
-.brand__text {
-  font-family: var(--font-head);
-  text-transform: uppercase;
-  line-height: 1;
-  font-size: 1.45rem;
-  letter-spacing: .02em;
-}
-
-.brand__text b {
-  color: var(--accent);
-  margin-left: 2px;
-}
-
-.brand__text em {
+.brand__logo-img {
+  height: 46px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
   display: block;
-  font-size: .56rem;
-  letter-spacing: .24em;
-  color: var(--dim);
-  font-style: normal;
-  margin-top: 3px;
+}
+
+.brand__region {
+  font-family: var(--font-head);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 3px 7px;
+  border-radius: 4px;
+  line-height: 1;
 }
 
 .nav {
@@ -179,7 +168,7 @@ function scroll(href: string) {
 
 .nav__link:hover {
   color: var(--text);
-  background: rgba(255, 106, 26, .08);
+  background: rgba(222, 33, 39, .1);
 }
 
 .hdr__cta {
@@ -238,6 +227,10 @@ function scroll(href: string) {
   .hdr__top-row {
     gap: 16px;
     font-size: .76rem;
+  }
+  .brand__logo-img {
+    height: 36px;
+    max-width: 170px;
   }
 }
 </style>

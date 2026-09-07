@@ -1,20 +1,21 @@
 import type { StatItem, RegionCity } from '../types'
 
 export const companyConfig = {
-  name: 'Форсунка 33',
-  brandSuffix: 'Дизель Сервис',
+  name: 'Forsun Motors',
+  brandNameRu: 'Форсун Моторс',
+  brandSuffix: 'Дизельный сервис',
   regionCode: '33 RUS',
   tagline: 'Высокоточная диагностика и ремонт дизельных форсунок во Владимире и области',
   phoneDisplay: '+7 (920) 933-00-33',
   phoneRaw: '+79209330033',
   phoneLandline: '+7 (4922) 77-33-00',
   whatsappUrl: 'https://wa.me/79209330033?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BF%D0%BE%20%D1%80%D0%B5%D0%BC%D0%BE%D0%BD%D1%82%D1%83%20%D1%84%D0%BE%D1%80%D1%81%D1%83%D0%BD%D0%BE%D0%BA',
-  telegramUrl: 'https://t.me/forsunka33_bot',
-  email: 'service@forsunka33.ru',
+  telegramUrl: 'https://t.me/forsun33_bot',
+  email: 'service@forsunmotors.ru',
   city: 'г. Владимир',
   address: 'ул. Куйбышева, 26Ж (съезд с трассы М-7 «Волга»)',
   addressNote: 'Удобный заезд для фур, тягачей и коммерческого транспорта без заезда в центр города',
-  workingHours: 'Пн-Сб: 08:30 — 19:00 | Вс: Дежурный мастер',
+  workingHours: 'Пн–Сб: 08:30 — 19:00 | Вс: Дежурный мастер',
   expressTime: 'от 15 минут',
   warrantyText: 'Гарантия до 12 месяцев без ограничения пробега'
 }

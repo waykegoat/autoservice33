@@ -9,9 +9,12 @@ import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
 
     <div class="container ftr__grid">
       <div class="ftr__col ftr__brand">
-        <span class="ftr__logo">ФОРСУНКА<b>33</b></span>
+        <div class="ftr__logo-wrap">
+          <img src="/logo.svg" alt="Forsun Motors" class="ftr__logo-img" />
+          <span class="ftr__region-pill">33 RUS</span>
+        </div>
         <p class="ftr__desc">
-          Специализированная лаборатория по ремонту и диагностике форсунок Common Rail, пьезофорсунок и насос-форсунок во Владимире и области.
+          Специализированный центр по ремонту и стендовой диагностике форсунок Common Rail, пьезофорсунок и насос-форсунок во Владимире и области.
         </p>
         <div class="ftr__socials">
           <a :href="`tel:${companyConfig.phoneRaw}`" aria-label="Телефон"><Phone :size="16" /></a>
@@ -56,7 +59,7 @@ import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
     </div>
 
     <div class="ftr__bottom container">
-      <span>© 2011–2026 Форсунка 33. Ремонт форсунок Common Rail во Владимире.</span>
+      <span>© 2011–2026 Forsun Motors (Форсун Моторс). Ремонт форсунок Common Rail во Владимире.</span>
       <span class="ftr__made">33 регион · Трасса М-7 «Волга»</span>
     </div>
   </footer>
@@ -81,20 +84,36 @@ import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
   padding: 64px 24px 40px;
 }
 
-.ftr__logo {
-  font-family: var(--font-head);
-  text-transform: uppercase;
-  font-size: 1.6rem;
-  letter-spacing: .02em;
+.ftr__logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.ftr__logo b {
-  color: var(--accent);
+.ftr__logo-img {
+  height: 40px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.ftr__region-pill {
+  font-family: var(--font-head);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
 }
 
 .ftr__desc {
   color: var(--muted);
-  margin: 16px 0 20px;
+  margin: 12px 0 20px;
   font-size: .92rem;
   max-width: 320px;
   line-height: 1.55;
