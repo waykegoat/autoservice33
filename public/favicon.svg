@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#0d0f13"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" stroke="#ff6a1a" stroke-width="2" stroke-opacity="0.4"/>
+  <!-- Injector body -->
+  <path d="M28 8h8v10h-8z" fill="#9aa3b0"/>
+  <path d="M26 18h12l-2 18h-8l-2-18z" fill="#ff6a1a"/>
+  <path d="M29 36h6l-1 12h-4l-1-12z" fill="#eef1f5"/>
+  <path d="M31 48h2v6h-2z" fill="#00d2ff"/>
+  <!-- Spray lines -->
+  <path d="M28 58l-5 4M32 58v5M36 58l5 4" stroke="#00d2ff" stroke-width="2" stroke-linecap="round"/>
+  <!-- 33 badge -->
+  <circle cx="48" cy="16" r="10" fill="#ff6a1a"/>
+  <text x="48" y="20" font-family="'Unbounded', sans-serif" font-size="10" font-weight="800" fill="#0d0f13" text-anchor="middle">33</text>
+</svg>
