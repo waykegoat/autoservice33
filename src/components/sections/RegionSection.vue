@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { regionCities, companyConfig } from '../../data/company'
-import BaseBadge from '../ui/BaseBadge.vue'
+import BaseCard from '../ui/BaseCard.vue'
 import BaseButton from '../ui/BaseButton.vue'
-import { MapPin, Navigation, Truck, Package, Clock, Phone } from 'lucide-vue-next'
+import { regionCities, companyConfig } from '../../data/company'
+import { MapPin, Navigation, Truck, Phone } from 'lucide-vue-next'
 
 defineEmits<{
   (e: 'open-booking'): void
@@ -10,315 +10,198 @@ defineEmits<{
 </script>
 
 <template>
-  <section id="region33" class="section region-section">
+  <section id="region33" class="section">
     <div class="container">
-      <div class="section-header section-header--center">
-        <span class="section-tag">
-          <MapPin :size="14" />
-          География обслуживания
-        </span>
+      <div class="section-head">
+        <p class="eyebrow">Владимирская область</p>
         <h2 class="section-title">
-          Работаем по всему <span class="text-gradient-primary">33 региону РФ</span>
+          Работаем по всему 33 региону <span class="accent">и транзитным трассам</span>
         </h2>
         <p class="section-subtitle">
-          Наш техцентр расположен во Владимире на ул. Куйбышева 26Ж прямо у федеральной трассы <strong>М-7 «Волга»</strong> с удобным заездом с <strong>М-12 «Восток»</strong>.
+          Сервис расположен во Владимире на ул. Куйбышева 26Ж прямо на съезде с федеральной трассы М-7 «Волга». Быстрый заезд без городских пробок.
         </p>
       </div>
 
-      <!-- Highway Transit Focus Banner -->
-      <div class="highway-banner">
-        <div class="highway-banner__content">
-          <div class="highway-badges">
-            <span class="road-badge road-badge--m7">М-7 ВОЛГА</span>
-            <span class="road-badge road-badge--m12">М-12 ВОСТОК</span>
-            <BaseBadge variant="tech">Транзитный экспресс</BaseBadge>
+      <!-- Highway Transit Banner -->
+      <div class="transit-banner">
+        <div class="transit-banner__content">
+          <div class="roads-row">
+            <span class="road-tag road-tag--m7">М-7 ВОЛГА</span>
+            <span class="road-tag road-tag--m12">М-12 ВОСТОК</span>
+            <span class="transit-tag">Транзитный экспресс</span>
           </div>
 
-          <h3 class="highway-title">
-            Транзитный транспорт и дальнобойщики: ремонт без простоя
-          </h3>
-          <p class="highway-desc">
-            Широкие ворота и просторная площадка для заезда тягачей с полуприцепами, грузовых фургонов и Газелей. Не нужно заезжать под городские знаки и стоять в пробках центра Владимира. Диагностика снятых форсунок — от 15 минут.
+          <h3 class="transit-title">Для тягачей, фур и коммерческих автопарков</h3>
+          <p class="transit-desc">
+            Широкая площадка для маневрирования крупногабаритной техники. Не нужно стоять в заторах в центре Владимира. Экспресс-диагностика снятых форсунок от 15 минут, постоянный склад готового обменного фонда.
           </p>
-
-          <div class="highway-features">
-            <div class="highway-feat">
-              <Clock :size="16" class="feat-icon text-gradient-primary" />
-              <span>Срочный прием транзитных авто без очередей</span>
-            </div>
-            <div class="highway-feat">
-              <Package :size="16" class="feat-icon text-gradient-tech" />
-              <span>Обменный фонд: отдал старую — сразу поставил готовую с гарантией</span>
-            </div>
-          </div>
         </div>
 
-        <div class="highway-banner__action">
-          <a :href="`tel:${companyConfig.phoneRaw}`" class="highway-call-card">
-            <Phone :size="24" class="call-icon" />
-            <div class="call-text">
-              <span class="call-label">Экстренная связь для водителей:</span>
-              <span class="call-phone">{{ companyConfig.phoneDisplay }}</span>
+        <div class="transit-banner__side">
+          <a :href="`tel:${companyConfig.phoneRaw}`" class="transit-phone-box">
+            <Phone :size="20" class="accent" />
+            <div>
+              <span class="phone-num">{{ companyConfig.phoneDisplay }}</span>
+              <span class="phone-lbl">Срочный прием с трассы</span>
             </div>
           </a>
         </div>
       </div>
 
-      <!-- Regional Cities Grid -->
-      <div class="region-cities-header">
-        <h3 class="region-cities-title">Прием форсунок из городов Владимирской области</h3>
-        <p class="region-cities-sub">Привозите лично или передавайте курьерскими службами СДЭК / Деловые Линии / автобусом</p>
+      <!-- Regional cities grid -->
+      <div class="cities-head">
+        <h3 class="cities-head__title">Доставка форсунок из городов области</h3>
+        <span class="cities-head__sub">Принимаем снятые форсунки через СДЭК, Деловые Линии или личный привоз</span>
       </div>
 
       <div class="cities-grid">
-        <div
+        <BaseCard
           v-for="city in regionCities"
           :key="city.name"
-          class="city-card card-base"
+          interactive
+          class="city-card"
         >
-          <div class="city-card__top">
-            <div class="city-name-group">
-              <MapPin :size="16" class="city-icon" />
-              <h4 class="city-name">{{ city.name }}</h4>
+          <div class="city-card__body">
+            <div class="city-card__top">
+              <div class="city-name-wrap">
+                <MapPin :size="16" class="accent" />
+                <h4 class="city-name">{{ city.name }}</h4>
+              </div>
+              <span class="city-dist mono">{{ city.distanceFromVladimir }}</span>
             </div>
-            <span class="city-dist">{{ city.distanceFromVladimir }}</span>
-          </div>
 
-          <div class="city-transit">
-            <Navigation :size="13" class="transit-icon" />
-            <span>Время в пути: <strong>{{ city.transitTime }}</strong></span>
-          </div>
-
-          <p class="city-delivery">
-            {{ city.deliveryOptions }}
-          </p>
-        </div>
-      </div>
-
-      <!-- How remote delivery works -->
-      <div class="delivery-steps-box">
-        <div class="delivery-title">Как отправить форсунки в ремонт из области (3 шага):</div>
-        <div class="delivery-steps">
-          <div class="delivery-step">
-            <span class="d-step-num">1</span>
-            <div class="d-step-content">
-              <strong>Снимите форсунки</strong>
-              <span>Упакуйте каждую форсунку в пленку или коробку, чтобы исключить попадание грязи в штуцеры.</span>
+            <div class="city-time">
+              <Navigation :size="13" />
+              <span>В пути: <strong>{{ city.transitTime }}</strong></span>
             </div>
-          </div>
 
-          <div class="delivery-step">
-            <span class="d-step-num">2</span>
-            <div class="d-step-content">
-              <strong>Отправьте СДЭК / ТК</strong>
-              <span>Пункт выдачи во Владимире (мы встретим посылку сразу при поступлении в город).</span>
-            </div>
+            <p class="city-note">{{ city.deliveryOptions }}</p>
           </div>
-
-          <div class="delivery-step">
-            <span class="d-step-num">3</span>
-            <div class="d-step-content">
-              <strong>Получите обратно</strong>
-              <span>После стенда и видеоотчета отправляем проверенные форсунки с тест-планами и гарантией.</span>
-            </div>
-          </div>
-        </div>
+        </BaseCard>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.region-section {
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* Highway Banner */
-.highway-banner {
-  background: linear-gradient(135deg, #181d27 0%, #11151d 100%);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 32px 24px;
+.transit-banner {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
+  padding: 36px 32px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto;
   gap: 32px;
-  margin-bottom: 56px;
-  position: relative;
-  overflow: hidden;
+  align-items: center;
+  margin-bottom: 54px;
 }
 
-@media (min-width: 1024px) {
-  .highway-banner {
-    grid-template-columns: 1fr 340px;
-    padding: 40px;
-    align-items: center;
-  }
-}
-
-.highway-banner::after {
-  content: '';
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 106, 26, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.highway-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.road-badge {
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: var(--radius-xs);
-  letter-spacing: 0.05em;
-}
-
-.road-badge--m7 {
-  background: #1a4d8f;
-  color: #ffffff;
-  border: 1px solid #2d6cc0;
-}
-
-.road-badge--m12 {
-  background: #2b7a4b;
-  color: #ffffff;
-  border: 1px solid #3ca365;
-}
-
-.highway-title {
-  font-family: var(--font-heading);
-  font-size: clamp(20px, 2.5vw, 26px);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 12px;
-  line-height: 1.25;
-}
-
-.highway-desc {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 680px;
-}
-
-.highway-features {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-@media (min-width: 640px) {
-  .highway-features {
-    flex-direction: row;
-    gap: 24px;
-  }
-}
-
-.highway-feat {
+.roads-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
-  color: var(--color-text);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
 }
 
-.feat-icon {
-  flex-shrink: 0;
+.road-tag {
+  font-family: var(--font-head);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
 }
 
-.highway-call-card {
+.road-tag--m7 {
+  background: #1e3a66;
+  color: #ffffff;
+}
+
+.road-tag--m12 {
+  background: #25663d;
+  color: #ffffff;
+}
+
+.transit-tag {
+  font-family: var(--font-head);
+  font-size: .75rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: .08em;
+}
+
+.transit-title {
+  font-size: 1.45rem;
+  margin-bottom: 10px;
+}
+
+.transit-desc {
+  color: var(--muted);
+  font-size: .94rem;
+  max-width: 640px;
+  line-height: 1.55;
+}
+
+.transit-phone-box {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(255, 106, 26, 0.1);
-  border: 1px solid rgba(255, 106, 26, 0.35);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+  gap: 14px;
+  padding: 16px 22px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  transition: all var(--transition-base);
+  transition: border-color .18s;
 }
 
-.highway-call-card:hover {
-  background: rgba(255, 106, 26, 0.18);
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow-primary);
+.transit-phone-box:hover {
+  border-color: var(--accent);
 }
 
-.call-icon {
-  color: var(--color-primary);
-  flex-shrink: 0;
+.phone-num {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  color: var(--text);
+  display: block;
 }
 
-.call-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.call-label {
-  font-size: 11px;
-  color: var(--color-text-dim);
+.phone-lbl {
+  font-size: .74rem;
+  color: var(--dim);
   text-transform: uppercase;
+  display: block;
+  margin-top: 2px;
 }
 
-.call-phone {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--color-text);
-}
-
-/* Cities Grid */
-.region-cities-header {
+/* Cities */
+.cities-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 24px;
 }
 
-.region-cities-title {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 4px;
+.cities-head__title {
+  font-size: 1.3rem;
 }
 
-.region-cities-sub {
-  font-size: 13px;
-  color: var(--color-text-muted);
+.cities-head__sub {
+  color: var(--muted);
+  font-size: .88rem;
 }
 
 .cities-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-@media (min-width: 640px) {
-  .cities-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .cities-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.city-card {
-  padding: 20px;
+.city-card__body {
+  padding: 22px;
   display: flex;
   flex-direction: column;
 }
@@ -327,121 +210,53 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-.city-name-group {
+.city-name-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.city-icon {
-  color: var(--color-primary);
-}
-
 .city-name {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-text);
+  font-size: 1.12rem;
 }
 
 .city-dist {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-tech);
-  background: rgba(0, 210, 255, 0.08);
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-size: .95rem;
+  color: var(--accent);
 }
 
-.city-transit {
+.city-time {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  color: var(--color-text-dim);
+  color: var(--dim);
+  font-size: .84rem;
   margin-bottom: 12px;
 }
 
-.transit-icon {
-  color: var(--color-text-dim);
+.city-note {
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.45;
 }
 
-.city-transit strong {
-  color: var(--color-text);
-}
-
-.city-delivery {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  line-height: 1.4;
-  margin-top: auto;
-}
-
-/* Delivery steps */
-.delivery-steps-box {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-}
-
-.delivery-title {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 20px;
-}
-
-.delivery-steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-@media (min-width: 768px) {
-  .delivery-steps {
-    grid-template-columns: repeat(3, 1fr);
+@media (max-width: 980px) {
+  .transit-banner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .cities-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.delivery-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-
-.d-step-num {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: #0b0d11;
-  font-weight: 800;
-  font-size: 13px;
-  flex-shrink: 0;
-}
-
-.d-step-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.d-step-content strong {
-  font-size: 14px;
-  color: var(--color-text);
-}
-
-.d-step-content span {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  line-height: 1.4;
+@media (max-width: 620px) {
+  .cities-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

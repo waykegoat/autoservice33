@@ -1,248 +1,146 @@
 <script setup lang="ts">
+import BaseCard from '../ui/BaseCard.vue'
 import { reviews } from '../../data/reviews'
-import BaseBadge from '../ui/BaseBadge.vue'
-import { Star, MessageSquare, Car, MapPin, CheckCircle } from 'lucide-vue-next'
+import { Star, MapPin } from 'lucide-vue-next'
 </script>
 
 <template>
-  <section id="reviews" class="section reviews-section">
+  <section id="reviews" class="section section--muted">
     <div class="container">
-      <div class="section-header section-header--center">
-        <span class="section-tag">
-          <MessageSquare :size="14" />
-          Реальные отзывы
-        </span>
+      <div class="section-head section-head--center">
+        <p class="eyebrow eyebrow--center">Отзывы клиентов</p>
         <h2 class="section-title">
-          Что говорят <span class="text-gradient-primary">клиенты о нашей работе</span>
+          Что говорят водители <span class="accent">после ремонта</span>
         </h2>
         <p class="section-subtitle">
-          Частные автовладельцы, коммерческие перевозчики и дальнобойщики с трассы М-7 делятся впечатлениями после стендового ремонта.
+          Частные дизели, коммерческие Газели и автопарки тягачей с трассы М-7 делятся результатами.
         </p>
-
-        <!-- Rating overview pill -->
-        <div class="rating-badge-row">
-          <div class="rating-stars">
-            <Star v-for="s in 5" :key="s" :size="18" class="star-icon" />
-          </div>
-          <span class="rating-val">4.9 / 5.0</span>
-          <span class="rating-sub">на основе 280+ отзывов на Яндекс.Картах и 2ГИС</span>
-        </div>
       </div>
 
       <div class="reviews-grid">
-        <div
+        <BaseCard
           v-for="rev in reviews"
           :key="rev.id"
-          class="review-card card-base"
+          class="review-card"
         >
-          <!-- Reviewer meta -->
-          <div class="review-card__top">
-            <div class="reviewer-avatar">
-              {{ rev.author.charAt(0) }}
-            </div>
-
-            <div class="reviewer-info">
-              <div class="author-row">
-                <span class="author-name">{{ rev.author }}</span>
-                <span class="review-date">{{ rev.date }}</span>
+          <div class="review-body">
+            <div class="review-top">
+              <div class="rev-author-group">
+                <span class="rev-name">{{ rev.author }}</span>
+                <span class="rev-city"><MapPin :size="12" class="accent" /> {{ rev.city }}</span>
               </div>
-
-              <div class="author-loc">
-                <MapPin :size="12" class="loc-icon" />
-                <span>{{ rev.city }}</span>
+              <div class="rev-stars">
+                <Star v-for="s in rev.rating" :key="s" :size="14" class="star-ic" />
               </div>
             </div>
-          </div>
 
-          <!-- Vehicle and work tag -->
-          <div class="review-vehicle-box">
-            <div class="vehicle-line">
-              <Car :size="14" class="v-icon" />
-              <span>{{ rev.vehicle }}</span>
-            </div>
-            <div class="work-line">
-              <CheckCircle :size="13" class="w-icon" />
+            <div class="rev-car-tag">
+              <strong>{{ rev.vehicle }}</strong>
               <span>{{ rev.repairType }}</span>
             </div>
-          </div>
 
-          <!-- Stars -->
-          <div class="card-stars">
-            <Star v-for="i in rev.rating" :key="i" :size="14" class="star-icon" />
-          </div>
+            <p class="rev-text">«{{ rev.text }}»</p>
 
-          <!-- Review text -->
-          <p class="review-text">«{{ rev.text }}»</p>
-        </div>
+            <span class="rev-date mono">{{ rev.date }}</span>
+          </div>
+        </BaseCard>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.reviews-section {
-  background-color: var(--color-bg);
-}
-
-.rating-badge-row {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
-}
-
-.rating-stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star-icon {
-  color: #ffb800;
-  fill: #ffb800;
-}
-
-.rating-val {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--color-text);
-}
-
-.rating-sub {
-  font-size: 12px;
-  color: var(--color-text-dim);
-}
-
 .reviews-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
-@media (min-width: 768px) {
-  .reviews-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.review-card {
-  padding: 28px 24px;
+.review-body {
+  padding: 28px;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.review-card__top {
+.review-top {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.reviewer-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-primary);
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.reviewer-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.author-row {
-  display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  gap: 14px;
+  margin-bottom: 14px;
 }
 
-.author-name {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-text);
+.rev-author-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.review-date {
-  font-size: 11px;
-  color: var(--color-text-dim);
+.rev-name {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  color: var(--text);
+  letter-spacing: .02em;
 }
 
-.author-loc {
+.rev-city {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
-  color: var(--color-text-dim);
+  color: var(--dim);
+  font-size: .82rem;
 }
 
-.loc-icon {
-  color: var(--color-primary);
-}
-
-.review-vehicle-box {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.vehicle-line,
-.work-line {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-}
-
-.vehicle-line {
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.work-line {
-  color: var(--color-text-muted);
-}
-
-.v-icon {
-  color: var(--color-tech);
-}
-
-.w-icon {
-  color: var(--color-success);
-}
-
-.card-stars {
+.rev-stars {
   display: flex;
   gap: 2px;
-  margin-bottom: 12px;
 }
 
-.review-text {
-  font-size: 13px;
-  color: var(--color-text-muted);
+.star-ic {
+  color: var(--accent);
+  fill: var(--accent);
+}
+
+.rev-car-tag {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rev-car-tag strong {
+  font-size: .88rem;
+  color: var(--text);
+}
+
+.rev-car-tag span {
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.rev-text {
+  font-size: .94rem;
+  color: var(--muted);
   line-height: 1.6;
+  margin-bottom: 16px;
+  flex-grow: 1;
   font-style: italic;
+}
+
+.rev-date {
+  font-size: .78rem;
+  color: var(--dim);
+  margin-top: auto;
+}
+
+@media (max-width: 800px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

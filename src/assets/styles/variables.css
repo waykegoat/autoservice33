@@ -1,62 +1,26 @@
 :root {
-  /* Color System */
-  --color-bg: #0b0d11;
-  --color-bg-secondary: #10141a;
-  --color-surface: #161b24;
-  --color-surface-hover: #1c222e;
-  --color-surface-elevated: #222938;
+  --bg: #0d0f13;
+  --bg-2: #12151b;
+  --surface: #171b22;
+  --surface-2: #1e232c;
+  --line: #2a3039;
+  --line-2: #363d48;
+  --text: #eef1f5;
+  --muted: #9aa3b0;
+  --dim: #646c78;
+  --accent: #ff6a1a;
+  --accent-2: #ff8a3d;
+  --accent-d: #d6520c;
+  --steel: #4a94d6;
+  --success: #37c98a;
+  --warn: #ffcf3f;
 
-  --color-border: #242c3b;
-  --color-border-subtle: #1c232f;
-  --color-border-focus: #ff6a1a;
-
-  --color-text: #f0f3f8;
-  --color-text-muted: #9aa5b8;
-  --color-text-dim: #606d82;
-
-  /* Brand Accents */
-  --color-primary: #ff6a1a;
-  --color-primary-hover: #ff7d38;
-  --color-primary-active: #e5560b;
-  --color-primary-rgb: 255, 106, 26;
-  --color-primary-gradient: linear-gradient(135deg, #ff6a1a 0%, #ff8a3d 100%);
-
-  --color-tech: #00d2ff;
-  --color-tech-rgb: 0, 210, 255;
-  --color-tech-gradient: linear-gradient(135deg, #00d2ff 0%, #0099ff 100%);
-
-  --color-success: #38d39f;
-  --color-success-rgb: 56, 211, 159;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-
-  /* Typography */
-  --font-heading: 'Unbounded', 'Oswald', system-ui, -apple-system, sans-serif;
+  --font-head: 'Oswald', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
 
-  /* Spacing */
-  --container-max: 1240px;
-  --section-spacing: 96px;
-  --section-spacing-mobile: 64px;
-
-  /* Transitions */
-  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-glow-primary: 0 0 30px rgba(255, 106, 26, 0.25);
-  --shadow-glow-tech: 0 0 30px rgba(0, 210, 255, 0.22);
-
-  /* Border radius */
-  --radius-xs: 4px;
+  --container: 1200px;
+  --radius: 12px;
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-pill: 9999px;
+  --shadow: 0 20px 45px -20px rgba(0, 0, 0, .7);
+  --shadow-accent: 0 14px 34px -14px rgba(255, 106, 26, .55);
 }

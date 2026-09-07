@@ -3,89 +3,79 @@ import { stats } from '../../data/company'
 </script>
 
 <template>
-  <section class="stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div
-          v-for="(item, index) in stats"
-          :key="index"
-          class="stat-card"
-        >
-          <div class="stat-value text-gradient-primary">
-            {{ item.value }}
-          </div>
-          <div class="stat-label">
-            {{ item.label }}
-          </div>
-          <div class="stat-sub">
-            {{ item.subtext }}
-          </div>
-        </div>
+  <section class="stats">
+    <div class="container stats__grid">
+      <div v-for="(s, i) in stats" :key="i" class="stat">
+        <span class="stat__val mono">{{ s.value }}</span>
+        <span class="stat__label">{{ s.label }}</span>
+        <p class="stat__sub">{{ s.subtext }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.stats-section {
-  padding: 20px 0 40px;
-  position: relative;
-  z-index: 2;
+.stats {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
 }
 
-.stats-grid {
+.stats__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 42px 24px;
 }
 
-@media (min-width: 640px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.stats__grid > * + * {
+  border-left: 1px solid var(--line);
+  padding-left: 24px;
 }
 
-@media (min-width: 1024px) {
-  .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.stat-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
+.stat {
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-base), border-color var(--transition-base);
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-border-focus);
-}
-
-.stat-value {
-  font-family: var(--font-heading);
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-
-.stat-label {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text);
+.stat__val {
+  font-family: var(--font-head);
+  font-size: 2.6rem;
+  color: var(--accent);
+  line-height: 1;
   margin-bottom: 6px;
 }
 
-.stat-sub {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  line-height: 1.4;
+.stat__label {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: .02em;
+}
+
+.stat__sub {
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 880px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 20px;
+    padding: 34px 20px;
+  }
+  .stats__grid > * + * {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 </style>

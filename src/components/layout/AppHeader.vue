@@ -1,542 +1,243 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { companyConfig } from '../../data/company'
+import { ref } from 'vue'
 import BaseButton from '../ui/BaseButton.vue'
-import BaseBadge from '../ui/BaseBadge.vue'
-import { Phone, MapPin, Clock, Menu, X, ArrowUpRight } from 'lucide-vue-next'
+import { Phone, Clock, MapPin, Wrench, Menu, X } from 'lucide-vue-next'
+import { companyConfig } from '../../data/company'
 
-const emit = defineEmits<{
+defineEmits<{
   (e: 'open-booking'): void
 }>()
 
-const isScrolled = ref(false)
-const isMobileMenuOpen = ref(false)
+const open = ref(false)
 
-const navLinks = [
-  { href: '#services', label: 'Услуги и цены' },
-  { href: '#calculator', label: 'Калькулятор' },
-  { href: '#symptoms', label: 'Признаки поломки' },
-  { href: '#equipment', label: 'Стенды' },
-  { href: '#region33', label: 'Владимир & Область' },
+const nav = [
+  { href: '#services', label: 'Услуги' },
+  { href: '#prices', label: 'Цены' },
+  { href: '#symptoms', label: 'Симптомы' },
+  { href: '#process', label: 'Как работаем' },
+  { href: '#region33', label: '33 Регион' },
   { href: '#reviews', label: 'Отзывы' },
   { href: '#contacts', label: 'Контакты' }
 ]
 
-function handleScroll() {
-  isScrolled.value = window.scrollY > 20
-}
-
-function scrollToSection(href: string) {
-  isMobileMenuOpen.value = false
+function scroll(href: string) {
+  open.value = false
   const el = document.querySelector(href)
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
 </script>
 
 <template>
-  <header class="header" :class="{ 'header--scrolled': isScrolled }">
-    <!-- Top Bar (Visible on desktop) -->
-    <div class="top-bar">
-      <div class="container top-bar__inner">
-        <div class="top-bar__left">
-          <div class="top-bar__item">
-            <MapPin :size="14" class="top-bar__icon text-gradient-primary" />
-            <span>{{ companyConfig.city }}, {{ companyConfig.address }}</span>
-          </div>
-          <div class="top-bar__item">
-            <Clock :size="14" class="top-bar__icon" />
-            <span>{{ companyConfig.workingHours }}</span>
-          </div>
-        </div>
-
-        <div class="top-bar__right">
-          <BaseBadge variant="tech" :pulse="true">
-            Приемка открыта • Стенд свободен
-          </BaseBadge>
-          <a
-            :href="companyConfig.whatsappUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="top-bar__messenger"
-          >
-            WhatsApp
-          </a>
-          <a
-            :href="companyConfig.telegramUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="top-bar__messenger"
-          >
-            Telegram
-          </a>
-        </div>
+  <header class="hdr">
+    <div class="hdr__top">
+      <div class="container hdr__top-row">
+        <a class="hdr__util" :href="`tel:${companyConfig.phoneRaw}`">
+          <Phone :size="14" class="hdr__ic" /> {{ companyConfig.phoneDisplay }}
+        </a>
+        <span class="hdr__util">
+          <Clock :size="14" class="hdr__ic" /> {{ companyConfig.workingHours }}
+        </span>
+        <span class="hdr__util hdr__util--addr">
+          <MapPin :size="14" class="hdr__ic" /> Владимир, ул. Куйбышева 26Ж (съезд с М-7)
+        </span>
       </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <div class="main-nav">
-      <div class="container main-nav__inner">
-        <!-- Logo -->
-        <a href="#" class="logo" @click.prevent="scrollToSection('#app')">
-          <div class="logo__emblem">
-            <svg viewBox="0 0 32 32" class="logo__svg" fill="none">
-              <path d="M16 3l10 5v8c0 7-5 11-10 13-5-2-10-6-10-13V8l10-5z" fill="#1e232c" stroke="#ff6a1a" stroke-width="1.5"/>
-              <path d="M14 9h4v6h-4z" fill="#ff6a1a"/>
-              <path d="M15 15h2v6h-2z" fill="#00d2ff"/>
-              <circle cx="16" cy="24" r="1.5" fill="#00d2ff"/>
-            </svg>
-          </div>
-          <div class="logo__text-group">
-            <div class="logo__name-row">
-              <span class="logo__brand">{{ companyConfig.name }}</span>
-              <span class="logo__region">{{ companyConfig.regionCode }}</span>
-            </div>
-            <span class="logo__sub">Центр ремонта форсунок Common Rail</span>
-          </div>
+    <div class="hdr__main">
+      <div class="container hdr__row">
+        <a href="#" class="brand" @click.prevent="scroll('#app')">
+          <span class="brand__mark"><Wrench :size="22" /></span>
+          <span class="brand__text">ФОРСУНКА<b>33</b><em>ДИЗЕЛЬНЫЙ СЕРВИС • ВЛАДИМИР</em></span>
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="nav-links">
+        <nav class="nav" :class="{ 'nav--open': open }">
           <a
-            v-for="link in navLinks"
-            :key="link.href"
-            :href="link.href"
-            class="nav-link"
-            @click.prevent="scrollToSection(link.href)"
+            v-for="item in nav"
+            :key="item.href"
+            :href="item.href"
+            class="nav__link"
+            @click.prevent="scroll(item.href)"
           >
-            {{ link.label }}
+            {{ item.label }}
           </a>
         </nav>
 
-        <!-- Right Action Group -->
-        <div class="header-actions">
-          <a :href="`tel:${companyConfig.phoneRaw}`" class="phone-link">
-            <div class="phone-icon-wrap">
-              <Phone :size="16" />
-            </div>
-            <div class="phone-text">
-              <span class="phone-number">{{ companyConfig.phoneDisplay }}</span>
-              <span class="phone-caption">Звонок мастеру</span>
-            </div>
-          </a>
-
-          <BaseButton
-            variant="primary"
-            size="sm"
-            class="header-cta"
-            @click="$emit('open-booking')"
-          >
-            Запись на стенд
-          </BaseButton>
-
-          <!-- Mobile Menu Trigger -->
-          <button
-            class="mobile-toggle"
-            @click="isMobileMenuOpen = !isMobileMenuOpen"
-            aria-label="Открыть меню"
-          >
-            <component :is="isMobileMenuOpen ? X : Menu" :size="24" />
-          </button>
+        <div class="hdr__cta">
+          <BaseButton size="md" @click="$emit('open-booking')">Записаться</BaseButton>
         </div>
+
+        <button class="burger" :aria-expanded="open" aria-label="Меню" @click="open = !open">
+          <component :is="open ? X : Menu" :size="20" />
+        </button>
       </div>
     </div>
-
-    <!-- Mobile Drawer Menu -->
-    <Transition name="drawer">
-      <div v-if="isMobileMenuOpen" class="mobile-drawer">
-        <div class="container mobile-drawer__inner">
-          <div class="mobile-status">
-            <BaseBadge variant="tech" :pulse="true">
-              Приемка открыта • Стенд свободен
-            </BaseBadge>
-          </div>
-
-          <nav class="mobile-links">
-            <a
-              v-for="link in navLinks"
-              :key="link.href"
-              :href="link.href"
-              class="mobile-link"
-              @click.prevent="scrollToSection(link.href)"
-            >
-              <span>{{ link.label }}</span>
-              <ArrowUpRight :size="16" class="mobile-link__arrow" />
-            </a>
-          </nav>
-
-          <div class="mobile-footer">
-            <div class="mobile-address">
-              <MapPin :size="16" class="text-gradient-primary" />
-              <span>{{ companyConfig.city }}, {{ companyConfig.address }}</span>
-            </div>
-
-            <a :href="`tel:${companyConfig.phoneRaw}`" class="mobile-phone-btn">
-              <Phone :size="18" />
-              <span>{{ companyConfig.phoneDisplay }}</span>
-            </a>
-
-            <BaseButton
-              variant="primary"
-              size="lg"
-              class="mobile-cta-btn"
-              @click="isMobileMenuOpen = false; $emit('open-booking')"
-            >
-              Записаться на стенд
-            </BaseButton>
-          </div>
-        </div>
-      </div>
-    </Transition>
   </header>
 </template>
 
 <style scoped>
-.header {
-  position: fixed;
+.hdr {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: background-color var(--transition-base), border-color var(--transition-base), backdrop-filter var(--transition-base);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 100;
 }
 
-.header--scrolled {
-  background-color: rgba(11, 13, 17, 0.94);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-sm);
+.hdr__top {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+  font-size: .82rem;
 }
 
-/* Top bar */
-.top-bar {
-  display: none;
-  background-color: rgba(16, 20, 26, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  font-size: 12px;
-  color: var(--color-text-muted);
-}
-
-@media (min-width: 1024px) {
-  .top-bar {
-    display: block;
-  }
-}
-
-.top-bar__inner {
+.hdr__top-row {
   display: flex;
-  justify-content: space-between;
+  gap: 26px;
   align-items: center;
-  height: 36px;
+  height: 38px;
+  color: var(--muted);
 }
 
-.top-bar__left,
-.top-bar__right {
-  display: flex;
+.hdr__util {
+  display: inline-flex;
   align-items: center;
-  gap: 20px;
+  gap: 7px;
 }
 
-.top-bar__item {
+.hdr__ic {
+  color: var(--accent);
+}
+
+.hdr__util--addr {
+  margin-left: auto;
+}
+
+.hdr__main {
+  background: rgba(13, 15, 19, .94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.hdr__row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 24px;
+  height: 74px;
 }
 
-.top-bar__icon {
-  color: var(--color-primary);
-}
-
-.top-bar__messenger {
-  color: var(--color-text-dim);
-  transition: color var(--transition-fast);
-}
-
-.top-bar__messenger:hover {
-  color: var(--color-text);
-}
-
-/* Main Nav */
-.main-nav {
-  height: 72px;
-  display: flex;
-  align-items: center;
-}
-
-.main-nav__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-/* Logo */
-.logo {
+.brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  text-decoration: none;
 }
 
-.logo__emblem {
-  width: 42px;
-  height: 42px;
+.brand__mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: #10120f;
+}
+
+.brand__text {
+  font-family: var(--font-head);
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: 1.45rem;
+  letter-spacing: .02em;
+}
+
+.brand__text b {
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+.brand__text em {
+  display: block;
+  font-size: .56rem;
+  letter-spacing: .24em;
+  color: var(--dim);
+  font-style: normal;
+  margin-top: 3px;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav__link {
+  font-family: var(--font-head);
+  text-transform: uppercase;
+  font-size: .92rem;
+  letter-spacing: .03em;
+  color: var(--muted);
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px rgba(255, 106, 26, 0.2);
+  transition: color .18s, background .18s;
 }
 
-.logo__svg {
-  width: 28px;
-  height: 28px;
+.nav__link:hover {
+  color: var(--text);
+  background: rgba(255, 106, 26, .08);
 }
 
-.logo__text-group {
-  display: flex;
-  flex-direction: column;
+.hdr__cta {
+  margin-left: 8px;
 }
 
-.logo__name-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.logo__brand {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--color-text);
-}
-
-.logo__region {
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--color-primary);
-  color: #0b0d11;
-}
-
-.logo__sub {
-  font-size: 11px;
-  color: var(--color-text-dim);
-  white-space: nowrap;
-}
-
-/* Nav Links */
-.nav-links {
+.burger {
   display: none;
-  align-items: center;
-  gap: 24px;
-}
-
-@media (min-width: 1100px) {
-  .nav-links {
-    display: flex;
-  }
-}
-
-.nav-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  transition: color var(--transition-fast);
-  position: relative;
-  padding: 4px 0;
-}
-
-.nav-link:hover {
-  color: var(--color-text);
-}
-
-.nav-link:hover::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--color-primary);
-  border-radius: 2px;
-}
-
-/* Right Header Actions */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.phone-link {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-@media (min-width: 768px) {
-  .phone-link {
-    display: flex;
-  }
-}
-
-.phone-icon-wrap {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 106, 26, 0.12);
-  border: 1px solid rgba(255, 106, 26, 0.25);
-  color: var(--color-primary);
-  display: flex;
+  background: none;
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
 }
 
-.phone-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.phone-number {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.phone-caption {
-  font-size: 11px;
-  color: var(--color-success);
-}
-
-.header-cta {
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .header-cta {
-    display: inline-flex;
-  }
-}
-
-.mobile-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-@media (min-width: 1100px) {
-  .mobile-toggle {
+@media (max-width: 980px) {
+  .hdr__util--addr {
     display: none;
   }
+  .hdr__cta {
+    display: none;
+  }
+  .burger {
+    display: inline-flex;
+    margin-left: auto;
+  }
+  .nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: .22s ease;
+  }
+  .nav--open {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav__link {
+    padding: 12px 14px;
+  }
 }
 
-/* Mobile Drawer */
-.mobile-drawer {
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  padding: 24px 0 32px;
-  max-height: calc(100vh - 72px);
-  overflow-y: auto;
-}
-
-.mobile-status {
-  margin-bottom: 20px;
-}
-
-.mobile-links {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 24px;
-}
-
-.mobile-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-text);
-  border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast);
-}
-
-.mobile-link:hover {
-  background-color: var(--color-surface-hover);
-  color: var(--color-primary);
-}
-
-.mobile-link__arrow {
-  color: var(--color-text-dim);
-}
-
-.mobile-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border-subtle);
-}
-
-.mobile-address {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--color-text-muted);
-}
-
-.mobile-phone-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-primary);
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.mobile-cta-btn {
-  width: 100%;
-}
-
-/* Transitions */
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: all 0.25s ease;
-}
-
-.drawer-enter-from,
-.drawer-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+@media (max-width: 560px) {
+  .hdr__top-row {
+    gap: 16px;
+    font-size: .76rem;
+  }
 }
 </style>

@@ -1,324 +1,182 @@
 <script setup lang="ts">
 import { companyConfig } from '../../data/company'
-import { MapPin, Phone, Clock, ArrowUp, Send } from 'lucide-vue-next'
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
+import { Phone, MapPin, Clock, Send } from 'lucide-vue-next'
 </script>
 
 <template>
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__grid">
-        <!-- Col 1: About -->
-        <div class="footer__col footer__col--about">
-          <div class="footer-logo">
-            <span class="footer-logo__brand">{{ companyConfig.name }}</span>
-            <span class="footer-logo__region">{{ companyConfig.regionCode }}</span>
-          </div>
-          <p class="footer-desc">
-            Специализированный дизельный технический центр по диагностике, ремонту и стендовому кодированию форсунок Common Rail и насос-форсунок во Владимирской области.
-          </p>
-          <div class="footer-m7-badge">
-            <span class="m7-dot"></span>
-            <span>Удобный заезд с трасс <strong>М-7 «Волга»</strong> и <strong>М-12 «Восток»</strong></span>
-          </div>
-        </div>
+  <footer class="ftr">
+    <div class="hazard ftr__stripe" />
 
-        <!-- Col 2: Services Quick links -->
-        <div class="footer__col">
-          <h4 class="footer-title">Направления работ</h4>
-          <ul class="footer-links">
-            <li><a href="#services">Диагностика на стенде за 15 мин</a></li>
-            <li><a href="#services">Ремонт Bosch CRI / CRIN</a></li>
-            <li><a href="#services">Ремонт форсунок Delphi (C2i/C3i)</a></li>
-            <li><a href="#services">Ремонт пьезофорсунок VDO / Bosch</a></li>
-            <li><a href="#services">Демонтаж прикипевших гидросъемником</a></li>
-            <li><a href="#services">Обменный фонд готовых форсунок</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Fuel Systems -->
-        <div class="footer__col">
-          <h4 class="footer-title">Топливные системы</h4>
-          <ul class="footer-links">
-            <li><span>Bosch Common Rail (CRI, CRIN)</span></li>
-            <li><span>Delphi DFI 1.2 - 2.5</span></li>
-            <li><span>Denso Common Rail (G2, G3)</span></li>
-            <li><span>Continental / Siemens VDO Piezo</span></li>
-            <li><span>Cummins ISF 2.8 / 3.8 / ISBe</span></li>
-            <li><span>Насос-форсунки Scania / Volvo / UIS</span></li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Contacts -->
-        <div class="footer__col">
-          <h4 class="footer-title">Пункт приема и стенд</h4>
-          <div class="footer-contacts">
-            <div class="footer-contact-item">
-              <MapPin :size="16" class="contact-icon text-gradient-primary" />
-              <span>{{ companyConfig.city }}, {{ companyConfig.address }}</span>
-            </div>
-            <div class="footer-contact-item">
-              <Clock :size="16" class="contact-icon" />
-              <span>{{ companyConfig.workingHours }}</span>
-            </div>
-            <div class="footer-contact-item">
-              <Phone :size="16" class="contact-icon" />
-              <a :href="`tel:${companyConfig.phoneRaw}`" class="contact-phone">
-                {{ companyConfig.phoneDisplay }}
-              </a>
-            </div>
-          </div>
-
-          <div class="footer-messengers">
-            <a
-              :href="companyConfig.whatsappUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-msg-btn footer-msg-btn--wa"
-            >
-              WhatsApp
-            </a>
-            <a
-              :href="companyConfig.telegramUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-msg-btn footer-msg-btn--tg"
-            >
-              <Send :size="14" />
-              Telegram
-            </a>
-          </div>
+    <div class="container ftr__grid">
+      <div class="ftr__col ftr__brand">
+        <span class="ftr__logo">ФОРСУНКА<b>33</b></span>
+        <p class="ftr__desc">
+          Специализированная лаборатория по ремонту и диагностике форсунок Common Rail, пьезофорсунок и насос-форсунок во Владимире и области.
+        </p>
+        <div class="ftr__socials">
+          <a :href="`tel:${companyConfig.phoneRaw}`" aria-label="Телефон"><Phone :size="16" /></a>
+          <a :href="companyConfig.whatsappUrl" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+          <a :href="companyConfig.telegramUrl" target="_blank" rel="noopener" aria-label="Telegram"><Send :size="15" /></a>
         </div>
       </div>
 
-      <!-- Bottom Bar -->
-      <div class="footer__bottom">
-        <div class="footer-copy">
-          © 2011–2026 {{ companyConfig.name }} ({{ companyConfig.regionCode }}). Все права защищены.
-          <span class="footer-copy-note">Не является публичной офертой. Точный расчет формируется после стендового тест-плана.</span>
-        </div>
-
-        <button class="scroll-top-btn" @click="scrollToTop" aria-label="Наверх">
-          <span>Наверх</span>
-          <ArrowUp :size="16" />
-        </button>
+      <div class="ftr__col">
+        <h4 class="ftr__title">Услуги</h4>
+        <ul class="ftr__links">
+          <li><a href="#services">Стендовая диагностика 15 мин</a></li>
+          <li><a href="#services">Ремонт Bosch CRI / CRIN</a></li>
+          <li><a href="#services">Ремонт Delphi (C2i / C3i)</a></li>
+          <li><a href="#services">Ремонт пьезофорсунок</a></li>
+          <li><a href="#services">Извлечение прикипевших</a></li>
+          <li><a href="#services">Обменный фонд форсунок</a></li>
+        </ul>
       </div>
+
+      <div class="ftr__col">
+        <h4 class="ftr__title">Разделы</h4>
+        <ul class="ftr__links">
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#prices">Прайс-лист</a></li>
+          <li><a href="#symptoms">Симптомы поломки</a></li>
+          <li><a href="#process">Как работаем</a></li>
+          <li><a href="#region33">33 Регион & Трасса М-7</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="ftr__col">
+        <h4 class="ftr__title">Контакты</h4>
+        <ul class="ftr__contacts">
+          <li><Phone :size="16" class="accent" /> {{ companyConfig.phoneDisplay }}</li>
+          <li><MapPin :size="16" class="accent" /> г. Владимир, {{ companyConfig.address }}</li>
+          <li><Clock :size="16" class="accent" /> {{ companyConfig.workingHours }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr__bottom container">
+      <span>© 2011–2026 Форсунка 33. Ремонт форсунок Common Rail во Владимире.</span>
+      <span class="ftr__made">33 регион · Трасса М-7 «Волга»</span>
     </div>
   </footer>
 </template>
 
 <style scoped>
-.footer {
-  background-color: #07090c;
-  border-top: 1px solid var(--color-border);
-  padding: 64px 0 32px;
-  position: relative;
+.ftr {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  margin-top: auto;
 }
 
-.footer__grid {
+.ftr__stripe {
+  height: 4px;
+  opacity: .85;
+}
+
+.ftr__grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
   gap: 40px;
-  margin-bottom: 48px;
+  padding: 64px 24px 40px;
 }
 
-@media (min-width: 640px) {
-  .footer__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.ftr__logo {
+  font-family: var(--font-head);
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  letter-spacing: .02em;
 }
 
-@media (min-width: 1024px) {
-  .footer__grid {
-    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+.ftr__logo b {
+  color: var(--accent);
+}
+
+.ftr__desc {
+  color: var(--muted);
+  margin: 16px 0 20px;
+  font-size: .92rem;
+  max-width: 320px;
+  line-height: 1.55;
+}
+
+.ftr__socials {
+  display: flex;
+  gap: 10px;
+}
+
+.ftr__socials a {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: .88rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  transition: .18s;
+  text-decoration: none;
+}
+
+.ftr__socials a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.ftr__title {
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+  letter-spacing: .03em;
+}
+
+.ftr__links li,
+.ftr__contacts li {
+  margin-bottom: 11px;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.ftr__links a:hover {
+  color: var(--accent);
+}
+
+.ftr__contacts li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  line-height: 1.4;
+}
+
+.ftr__contacts :deep(svg) {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ftr__bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-top: 1px solid var(--line);
+  color: var(--dim);
+  font-size: .85rem;
+}
+
+@media (max-width: 880px) {
+  .ftr__grid {
+    grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.footer-logo__brand {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--color-text);
-}
-
-.footer-logo__region {
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--color-primary);
-  color: #0b0d11;
-}
-
-.footer-desc {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.footer-m7-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 106, 26, 0.08);
-  border: 1px solid rgba(255, 106, 26, 0.2);
-  font-size: 12px;
-  color: var(--color-text);
-}
-
-.m7-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 6px var(--color-primary);
-}
-
-.footer-title {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 20px;
-  letter-spacing: 0.02em;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-links a,
-.footer-links span {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.footer-links a:hover {
-  color: var(--color-primary);
-}
-
-.footer-contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.footer-contact-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--color-text-muted);
-}
-
-.contact-icon {
-  margin-top: 3px;
-  flex-shrink: 0;
-  color: var(--color-text-dim);
-}
-
-.contact-phone {
-  color: var(--color-primary);
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.footer-messengers {
-  display: flex;
-  gap: 10px;
-}
-
-.footer-msg-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform var(--transition-fast);
-}
-
-.footer-msg-btn:hover {
-  transform: translateY(-1px);
-}
-
-.footer-msg-btn--wa {
-  background: rgba(37, 211, 102, 0.12);
-  color: #25d366;
-  border: 1px solid rgba(37, 211, 102, 0.25);
-}
-
-.footer-msg-btn--tg {
-  background: rgba(0, 136, 204, 0.12);
-  color: #0088cc;
-  border: 1px solid rgba(0, 136, 204, 0.25);
-}
-
-/* Footer Bottom */
-.footer__bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border-subtle);
-  font-size: 12px;
-  color: var(--color-text-dim);
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .footer__bottom {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
+@media (max-width: 520px) {
+  .ftr__grid {
+    grid-template-columns: 1fr;
   }
-}
-
-.footer-copy-note {
-  display: block;
-  font-size: 11px;
-  margin-top: 4px;
-}
-
-.scroll-top-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-  font-size: 12px;
-  transition: all var(--transition-fast);
-}
-
-.scroll-top-btn:hover {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
+  .ftr__bottom {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 </style>

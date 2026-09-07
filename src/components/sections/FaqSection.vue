@@ -1,91 +1,47 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { faqList } from '../../data/faq'
-import { companyConfig } from '../../data/company'
-import BaseButton from '../ui/BaseButton.vue'
-import { HelpCircle, ChevronDown, PhoneCall } from 'lucide-vue-next'
+import { ChevronDown } from 'lucide-vue-next'
 
-defineEmits<{
-  (e: 'open-booking'): void
-}>()
+const openId = ref<string | null>('faq-code')
 
-const openItems = ref<Record<string, boolean>>({
-  'faq-code': true, // First item open by default
-  'faq-stuck': true
-})
-
-function toggleItem(id: string) {
-  openItems.value[id] = !openItems.value[id]
+function toggle(id: string) {
+  openId.value = openId.value === id ? null : id
 }
 </script>
 
 <template>
-  <section id="faq" class="section faq-section">
+  <section id="faq" class="section">
     <div class="container">
-      <div class="section-header section-header--center">
-        <span class="section-tag section-tag--tech">
-          <HelpCircle :size="14" />
-          База знаний
-        </span>
+      <div class="section-head section-head--center">
+        <p class="eyebrow eyebrow--center">Вопросы и ответы</p>
         <h2 class="section-title">
-          Часто задаваемые <span class="text-gradient-tech">вопросы и ответы</span>
+          Частые вопросы <span class="accent">по ремонту и кодированию</span>
         </h2>
         <p class="section-subtitle">
-          Технические нюансы, прописка кодов, гарантийные обязательства и работа со сложными случаями.
+          Технические нюансы, присвоение IMA-кодов, ресурс восстановленных форсунок и демонтаж.
         </p>
       </div>
 
-      <div class="faq-accordion">
+      <div class="faq-list">
         <div
           v-for="item in faqList"
           :key="item.id"
-          class="faq-item"
-          :class="{ 'faq-item--open': openItems[item.id] }"
+          class="faq-box"
+          :class="{ 'faq-box--active': openId === item.id }"
         >
           <button
-            class="faq-trigger"
-            @click="toggleItem(item.id)"
-            :aria-expanded="!!openItems[item.id]"
+            class="faq-q"
+            @click="toggle(item.id)"
+            :aria-expanded="openId === item.id"
           >
-            <div class="faq-question-group">
-              <span class="faq-cat-badge">{{ item.category }}</span>
-              <span class="faq-question">{{ item.question }}</span>
-            </div>
-            <div class="faq-icon-wrap">
-              <ChevronDown :size="18" class="faq-chevron" />
-            </div>
+            <span>{{ item.question }}</span>
+            <ChevronDown :size="18" class="faq-arrow" />
           </button>
 
-          <div v-show="openItems[item.id]" class="faq-answer-panel">
-            <p class="faq-answer-text">{{ item.answer }}</p>
+          <div v-show="openId === item.id" class="faq-a">
+            <p>{{ item.answer }}</p>
           </div>
-        </div>
-      </div>
-
-      <!-- Still have questions CTA card -->
-      <div class="faq-help-card">
-        <div class="faq-help-info">
-          <h4 class="help-title">Остались вопросы по вашей топливной системе?</h4>
-          <p class="help-desc">
-            Опишите симптомы вашему мастеру во Владимире — подскажем, в чем именно причина, и назовем точную стоимость до снятия форсунок.
-          </p>
-        </div>
-
-        <div class="faq-help-actions">
-          <BaseButton
-            variant="primary"
-            size="md"
-            @click="$emit('open-booking')"
-          >
-            <template #icon-left>
-              <PhoneCall :size="16" />
-            </template>
-            Консультация инженера
-          </BaseButton>
-
-          <a :href="`tel:${companyConfig.phoneRaw}`" class="direct-phone">
-            {{ companyConfig.phoneDisplay }}
-          </a>
         </div>
       </div>
     </div>
@@ -93,155 +49,59 @@ function toggleItem(id: string) {
 </template>
 
 <style scoped>
-.faq-section {
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.faq-accordion {
-  max-width: 860px;
-  margin: 0 auto 48px;
+.faq-list {
+  max-width: 820px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.faq-item {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+.faq-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color var(--transition-fast);
+  transition: border-color .18s;
 }
 
-.faq-item--open {
-  border-color: var(--color-border-focus);
+.faq-box--active {
+  border-color: var(--accent);
 }
 
-.faq-trigger {
+.faq-q {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 20px 24px;
   text-align: left;
-  gap: 16px;
   background: none;
-  cursor: pointer;
+  border: none;
+  color: var(--text);
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  letter-spacing: .02em;
 }
 
-.faq-question-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.faq-cat-badge {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-tech);
-}
-
-.faq-question {
-  font-family: var(--font-heading);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.35;
-}
-
-.faq-icon-wrap {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-surface-elevated);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.faq-arrow {
+  color: var(--dim);
   flex-shrink: 0;
-  color: var(--color-text-muted);
-  transition: transform var(--transition-base), background-color var(--transition-fast);
+  transition: transform .2s ease, color .2s ease;
 }
 
-.faq-item--open .faq-icon-wrap {
+.faq-box--active .faq-arrow {
   transform: rotate(180deg);
-  background: rgba(255, 106, 26, 0.15);
-  color: var(--color-primary);
+  color: var(--accent);
 }
 
-.faq-answer-panel {
+.faq-a {
   padding: 0 24px 22px;
-}
-
-.faq-answer-text {
-  font-size: 14px;
-  color: var(--color-text-muted);
+  color: var(--muted);
+  font-size: .94rem;
   line-height: 1.65;
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 1px solid var(--line);
   padding-top: 16px;
-}
-
-/* Bottom help card */
-.faq-help-card {
-  max-width: 860px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, #181e28 0%, #12151d 100%);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (min-width: 768px) {
-  .faq-help-card {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px 36px;
-  }
-}
-
-.faq-help-info {
-  max-width: 500px;
-}
-
-.help-title {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 6px;
-}
-
-.help-desc {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  line-height: 1.5;
-}
-
-.faq-help-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-@media (min-width: 768px) {
-  .faq-help-actions {
-    align-items: flex-end;
-  }
-}
-
-.direct-phone {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
 }
 </style>

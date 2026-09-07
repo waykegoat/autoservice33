@@ -1,23 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { companyConfig } from '../../data/company'
 import BaseButton from '../ui/BaseButton.vue'
-import BaseBadge from '../ui/BaseBadge.vue'
-import {
-  MapPin,
-  Phone,
-  Clock,
-  Send,
-  Check,
-  Copy,
-  Navigation,
-  CheckCircle2,
-  ShieldCheck
-} from 'lucide-vue-next'
+import BaseCard from '../ui/BaseCard.vue'
+import { companyConfig } from '../../data/company'
+import { MapPin, Phone, Clock, Copy, Check, Send } from 'lucide-vue-next'
 
-const isCopied = ref(false)
-const isSubmitting = ref(false)
-const isSubmitted = ref(false)
+const copied = ref(false)
+const submitting = ref(false)
+const sent = ref(false)
 
 const form = ref({
   name: '',
@@ -26,198 +16,152 @@ const form = ref({
   message: ''
 })
 
-function copyAddress() {
-  const fullAddress = `${companyConfig.city}, ${companyConfig.address}`
-  navigator.clipboard.writeText(fullAddress)
-  isCopied.value = true
-  setTimeout(() => {
-    isCopied.value = false
-  }, 2000)
+function copyAddr() {
+  navigator.clipboard.writeText(`${companyConfig.city}, ${companyConfig.address}`)
+  copied.value = true
+  setTimeout(() => (copied.value = false), 2000)
 }
 
-function handleFormSubmit() {
+function submit() {
   if (!form.value.phone) return
-  isSubmitting.value = true
+  submitting.value = true
   setTimeout(() => {
-    isSubmitting.value = false
-    isSubmitted.value = true
-  }, 600)
+    submitting.value = false
+    sent.value = true
+  }, 500)
 }
 </script>
 
 <template>
-  <section id="contacts" class="section contacts-section">
+  <section id="contacts" class="section section--muted">
     <div class="container">
-      <div class="section-header section-header--center">
-        <span class="section-tag">
-          <MapPin :size="14" />
-          Контакты и проезд
-        </span>
+      <div class="section-head">
+        <p class="eyebrow">Контакты и запись</p>
         <h2 class="section-title">
-          Как нас найти в <span class="text-gradient-primary">33 регионе</span>
+          Ждем вас <span class="accent">во Владимире</span>
         </h2>
         <p class="section-subtitle">
-          Удобный подъезд с трассы М-7 «Волга» без пробок и ограничений на грузовой транспорт. Ждем вас на диагностику и ремонт.
+          Удобный заезд с федеральной трассы М-7 «Волга» без городских пробок.
         </p>
       </div>
 
-      <div class="contacts-layout">
-        <!-- Left: Contact info cards -->
-        <div class="contacts-info-col">
-          <!-- Address Card -->
-          <div class="contact-card card-base">
-            <div class="card-icon-wrap">
-              <MapPin :size="20" />
-            </div>
-            <div class="card-body-content">
-              <span class="card-label">Адрес техцентра:</span>
-              <h4 class="card-val">{{ companyConfig.city }}, {{ companyConfig.address }}</h4>
-              <p class="card-desc">{{ companyConfig.addressNote }}</p>
+      <div class="contacts-grid">
+        <!-- Info Column -->
+        <div class="info-col">
+          <BaseCard accent class="info-card">
+            <div class="info-body">
+              <span class="info-label">Адрес мастерской</span>
+              <h3 class="info-title">{{ companyConfig.city }}, {{ companyConfig.address }}</h3>
+              <p class="info-sub">{{ companyConfig.addressNote }}</p>
 
-              <button class="copy-btn" @click="copyAddress">
-                <component :is="isCopied ? Check : Copy" :size="14" />
-                <span>{{ isCopied ? 'Адрес скопирован в буфер!' : 'Скопировать для навигатора' }}</span>
+              <button class="copy-act" @click="copyAddr">
+                <component :is="copied ? Check : Copy" :size="14" />
+                <span>{{ copied ? 'Адрес скопирован' : 'Скопировать для навигатора' }}</span>
               </button>
             </div>
-          </div>
+          </BaseCard>
 
-          <!-- Phone & Working hours -->
-          <div class="contact-card card-base">
-            <div class="card-icon-wrap">
-              <Phone :size="20" />
-            </div>
-            <div class="card-body-content">
-              <span class="card-label">Прямой номер мастера:</span>
-              <a :href="`tel:${companyConfig.phoneRaw}`" class="card-phone">
+          <BaseCard class="info-card">
+            <div class="info-body">
+              <span class="info-label">Телефон мастера</span>
+              <a :href="`tel:${companyConfig.phoneRaw}`" class="phone-link mono">
                 {{ companyConfig.phoneDisplay }}
               </a>
-              <span class="card-sub-phone">Городской: {{ companyConfig.phoneLandline }}</span>
-              <div class="hours-badge">
-                <Clock :size="13" />
-                <span>{{ companyConfig.workingHours }}</span>
-              </div>
+              <span class="hours-line">
+                <Clock :size="14" class="accent" /> {{ companyConfig.workingHours }}
+              </span>
             </div>
-          </div>
+          </BaseCard>
 
-          <!-- Messengers row -->
-          <div class="messengers-card card-base">
-            <span class="card-label">Быстрая консультация в чате:</span>
-            <div class="msg-buttons">
-              <a
-                :href="companyConfig.whatsappUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="msg-link msg-link--wa"
-              >
-                <span>Написать в WhatsApp</span>
-              </a>
-              <a
-                :href="companyConfig.telegramUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="msg-link msg-link--tg"
-              >
-                <span>Написать в Telegram</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Navigation Coordinates Helper -->
-          <div class="nav-helper-card">
-            <Navigation :size="18" class="text-gradient-tech" />
-            <span>Для Яндекс.Навигатора: введите <strong>«Форсунка 33 Владимир»</strong> или адрес <strong>ул. Куйбышева, 26Ж</strong></span>
+          <div class="messengers-row">
+            <a
+              :href="companyConfig.whatsappUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="msg-btn msg-btn--wa"
+            >
+              WhatsApp
+            </a>
+            <a
+              :href="companyConfig.telegramUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="msg-btn msg-btn--tg"
+            >
+              Telegram
+            </a>
           </div>
         </div>
 
-        <!-- Right: Fast Booking Form -->
-        <div class="contacts-form-col">
-          <div class="form-card">
-            <div v-if="!isSubmitted">
-              <div class="form-card__header">
-                <h3 class="form-title">Записаться на стендовый осмотр</h3>
-                <p class="form-sub">
-                  Оставьте телефон — мастер зарезервирует стенд на удобное вам время.
-                </p>
-              </div>
+        <!-- Form Column -->
+        <div class="form-col">
+          <div class="form-wrap">
+            <div v-if="!sent">
+              <h3 class="form-head">Записаться на стендовый осмотр</h3>
+              <p class="form-subhead">Оставьте номер — перезвоним в течение 10 минут и согласуем заезд.</p>
 
-              <form @submit.prevent="handleFormSubmit" class="contacts-form">
-                <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
+              <form @submit.prevent="submit" class="contact-form">
+                <div class="input-row">
+                  <label class="input-lbl">Ваше имя</label>
                   <input
                     v-model="form.name"
                     type="text"
-                    placeholder="Как к вам обращаться"
-                    class="form-input"
+                    placeholder="Александр"
+                    class="txt-input"
                   />
                 </div>
 
-                <div class="form-group">
-                  <label class="form-label">
-                    Номер телефона <span class="text-primary">*</span>
-                  </label>
+                <div class="input-row">
+                  <label class="input-lbl">Телефон <span class="accent">*</span></label>
                   <input
                     v-model="form.phone"
                     type="tel"
                     placeholder="+7 (___) ___-__-__"
                     required
-                    class="form-input"
+                    class="txt-input"
                   />
                 </div>
 
-                <div class="form-group">
-                  <label class="form-label">Автомобиль / Двигатель</label>
+                <div class="input-row">
+                  <label class="input-lbl">Автомобиль или тип форсунки</label>
                   <input
                     v-model="form.car"
                     type="text"
-                    placeholder="Например, Газель Next, Transit, Touareg"
-                    class="form-input"
+                    placeholder="Газель Next Cummins 2.8, Transit или снятые форсунки"
+                    class="txt-input"
                   />
                 </div>
 
-                <div class="form-group">
-                  <label class="form-label">Что происходит с машиной?</label>
+                <div class="input-row">
+                  <label class="input-lbl">Симптомы (кратко)</label>
                   <textarea
                     v-model="form.message"
-                    rows="3"
-                    placeholder="Дым, стук форсунки, не заводится на горячую..."
-                    class="form-textarea"
+                    rows="2"
+                    placeholder="Черный дым, троит на холодную, стук форсунки..."
+                    class="txt-input txt-area"
                   ></textarea>
                 </div>
 
                 <BaseButton
                   type="submit"
-                  variant="primary"
                   size="lg"
-                  class="submit-action-btn"
-                  :disabled="isSubmitting"
+                  block
+                  :disabled="submitting"
                 >
-                  <template #icon-left>
-                    <Send :size="18" />
-                  </template>
-                  {{ isSubmitting ? 'Отправляем...' : 'Отправить заявку мастеру' }}
+                  {{ submitting ? 'Отправка...' : 'Отправить заявку мастеру' }}
                 </BaseButton>
-
-                <div class="form-privacy">
-                  <ShieldCheck :size="15" class="privacy-shield" />
-                  <span>Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</span>
-                </div>
               </form>
             </div>
 
-            <div v-else class="form-success">
-              <div class="success-icon-wrap">
-                <CheckCircle2 :size="56" class="text-success" />
-              </div>
-              <h4 class="success-head">Заявка успешно отправлена!</h4>
-              <p class="success-message">
-                Мастер технического центра свяжется с вами в течение 10-15 минут для уточнения симптомов и бронирования времени стенда.
+            <div v-else class="form-done">
+              <span class="done-ic">✓</span>
+              <h3 class="done-title">Заявка принята</h3>
+              <p class="done-desc">
+                Мастер свяжется с вами по указанному телефону для подтверждения бронирования стенда.
               </p>
-              <div class="success-phone-bar">
-                <span>Или позвоните сразу: </span>
-                <a :href="`tel:${companyConfig.phoneRaw}`" class="success-phone-link">
-                  {{ companyConfig.phoneDisplay }}
-                </a>
-              </div>
+              <a :href="`tel:${companyConfig.phoneRaw}`" class="done-call">
+                Или позвоните прямо сейчас: <strong>{{ companyConfig.phoneDisplay }}</strong>
+              </a>
             </div>
           </div>
         </div>
@@ -227,311 +171,222 @@ function handleFormSubmit() {
 </template>
 
 <style scoped>
-.contacts-section {
-  background-color: var(--color-bg);
-}
-
-.contacts-layout {
+.contacts-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: flex-start;
 }
 
-@media (min-width: 1024px) {
-  .contacts-layout {
-    grid-template-columns: 1.15fr 1fr;
-    gap: 40px;
-  }
-}
-
-.contacts-info-col {
+.info-col {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.contact-card {
+.info-card {
+  width: 100%;
+}
+
+.info-body {
   padding: 24px;
-  display: flex;
-  gap: 18px;
 }
 
-.card-icon-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 106, 26, 0.1);
-  border: 1px solid rgba(255, 106, 26, 0.3);
-  color: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.card-body-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.card-label {
-  font-size: 11px;
+.info-label {
+  font-family: var(--font-head);
+  font-size: .78rem;
   text-transform: uppercase;
-  color: var(--color-text-dim);
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
-}
-
-.card-val {
-  font-family: var(--font-heading);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
+  letter-spacing: .08em;
+  color: var(--dim);
+  display: block;
   margin-bottom: 6px;
 }
 
-.card-desc {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  line-height: 1.4;
-  margin-bottom: 12px;
+.info-title {
+  font-size: 1.35rem;
+  margin-bottom: 6px;
 }
 
-.copy-btn {
+.info-sub {
+  color: var(--muted);
+  font-size: .88rem;
+  margin-bottom: 14px;
+}
+
+.copy-act {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-tech);
-  background: rgba(0, 210, 255, 0.08);
-  border: 1px solid rgba(0, 210, 255, 0.2);
-  padding: 6px 12px;
+  gap: 7px;
+  padding: 7px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
-  align-self: flex-start;
-  transition: all var(--transition-fast);
+  color: var(--text);
+  font-size: .82rem;
+  transition: all .16s ease;
 }
 
-.copy-btn:hover {
-  background: rgba(0, 210, 255, 0.16);
+.copy-act:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-.card-phone {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--color-primary);
-  text-decoration: none;
-  margin-bottom: 2px;
+.phone-link {
+  font-family: var(--font-head);
+  font-size: 1.7rem;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
 }
 
-.card-sub-phone {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  margin-bottom: 10px;
-}
-
-.hours-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--color-text-muted);
-  background: var(--color-surface-elevated);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  align-self: flex-start;
-}
-
-/* Messengers card */
-.messengers-card {
-  padding: 20px 24px;
+.hours-line {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--muted);
 }
 
-.msg-buttons {
+.messengers-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.msg-link {
+.msg-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 12px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all var(--transition-fast);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-head);
+  font-size: .92rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-weight: 600;
+  transition: transform .16s ease;
 }
 
-.msg-link--wa {
-  background: rgba(37, 211, 102, 0.12);
+.msg-btn:hover {
+  transform: translateY(-2px);
+}
+
+.msg-btn--wa {
+  background: rgba(37, 211, 102, .12);
   color: #25d366;
-  border: 1px solid rgba(37, 211, 102, 0.3);
+  border: 1px solid rgba(37, 211, 102, .3);
 }
 
-.msg-link--wa:hover {
-  background: rgba(37, 211, 102, 0.22);
-  transform: translateY(-1px);
-}
-
-.msg-link--tg {
-  background: rgba(0, 136, 204, 0.12);
+.msg-btn--tg {
+  background: rgba(0, 136, 204, .12);
   color: #0088cc;
-  border: 1px solid rgba(0, 136, 204, 0.3);
+  border: 1px solid rgba(0, 136, 204, .3);
 }
 
-.msg-link--tg:hover {
-  background: rgba(0, 136, 204, 0.22);
-  transform: translateY(-1px);
+/* Form Wrap */
+.form-wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 36px;
 }
 
-.nav-helper-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  border: 1px dashed var(--color-border);
-  font-size: 13px;
-  color: var(--color-text-muted);
-}
-
-.nav-helper-card strong {
-  color: var(--color-text);
-}
-
-/* Form card */
-.form-card {
-  background: linear-gradient(180deg, #181d27 0%, #11141b 100%);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 32px 28px;
-  box-shadow: var(--shadow-md);
-}
-
-.form-card__header {
-  margin-bottom: 24px;
-}
-
-.form-title {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text);
+.form-head {
+  font-size: 1.45rem;
   margin-bottom: 6px;
 }
 
-.form-sub {
-  font-size: 13px;
-  color: var(--color-text-muted);
+.form-subhead {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 24px;
 }
 
-.contacts-form {
+.contact-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.form-group {
+.input-row {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.form-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text);
+.input-lbl {
+  font-family: var(--font-head);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
 }
 
-.text-primary {
-  color: var(--color-primary);
-}
-
-.form-input,
-.form-textarea {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+.txt-input {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   padding: 12px 14px;
-  color: var(--color-text);
-  font-size: 14px;
-  transition: border-color var(--transition-fast);
+  color: var(--text);
+  font-size: .94rem;
+  transition: border-color .16s ease;
 }
 
-.form-input:focus,
-.form-textarea:focus {
+.txt-input:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--accent);
 }
 
-.form-textarea {
+.txt-area {
   resize: vertical;
 }
 
-.submit-action-btn {
-  width: 100%;
-  margin-top: 6px;
-}
-
-.form-privacy {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: var(--color-text-dim);
-}
-
-.privacy-shield {
-  color: var(--color-success);
-  flex-shrink: 0;
-}
-
-/* Success state */
-.form-success {
+.form-done {
   text-align: center;
-  padding: 32px 12px;
+  padding: 30px 10px;
 }
 
-.success-icon-wrap {
+.done-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #10120f;
+  font-size: 1.6rem;
+  font-weight: 700;
   margin-bottom: 16px;
 }
 
-.text-success {
-  color: var(--color-success);
+.done-title {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
 }
 
-.success-head {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 12px;
+.done-desc {
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
-.success-message {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 24px;
+.done-call {
+  font-size: .94rem;
+  color: var(--text);
 }
 
-.success-phone-bar {
-  font-size: 14px;
-  color: var(--color-text);
+.done-call strong {
+  color: var(--accent);
 }
 
-.success-phone-link {
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
+@media (max-width: 900px) {
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-wrap {
+    padding: 24px;
+  }
 }
 </style>

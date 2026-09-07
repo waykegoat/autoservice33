@@ -1,36 +1,38 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 interface Props {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'tech'
-  size?: 'sm' | 'md' | 'lg'
-  disabled?: boolean
-  type?: 'button' | 'submit' | 'reset'
+  variant?: 'primary' | 'outline' | 'ghost'
+  size?: 'md' | 'lg'
   href?: string
+  block?: boolean
+  type?: 'button' | 'submit'
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md',
-  type: 'button',
-  disabled: false
+  type: 'button'
 })
+
+const classes = computed(() => [
+  'btn',
+  `btn--${props.variant}`,
+  `btn--${props.size}`,
+  { 'btn--block': props.block }
+])
+
+const tag = computed(() => (props.href ? 'a' : 'button'))
 </script>
 
 <template>
   <component
-    :is="href ? 'a' : 'button'"
+    :is="tag"
+    :class="classes"
     :href="href"
-    :type="!href ? type : undefined"
-    :class="[
-      'btn',
-      `btn--${variant}`,
-      `btn--${size}`,
-      { 'btn--disabled': disabled }
-    ]"
-    :disabled="!href && disabled"
+    :type="tag === 'button' ? type : undefined"
   >
-    <slot name="icon-left" />
-    <span class="btn__content"><slot /></span>
-    <slot name="icon-right" />
+    <span class="btn__label"><slot /></span>
   </component>
 </template>
 
@@ -40,113 +42,69 @@ withDefaults(defineProps<Props>(), {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-family: var(--font-heading);
+  font-family: var(--font-head);
   font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
-  cursor: pointer;
-  white-space: nowrap;
-  user-select: none;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Sizes */
-.btn--sm {
-  padding: 8px 16px;
-  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
+  transition: transform .16s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .btn--md {
-  padding: 12px 24px;
-  font-size: 14px;
-  letter-spacing: 0.02em;
+  padding: 12px 22px;
+  font-size: .92rem;
 }
 
 .btn--lg {
-  padding: 16px 32px;
-  font-size: 15px;
-  letter-spacing: 0.03em;
-  border-radius: var(--radius-lg);
+  padding: 16px 30px;
+  font-size: 1.02rem;
 }
 
-/* Variants */
+.btn--block {
+  width: 100%;
+}
+
 .btn--primary {
-  background: var(--color-primary-gradient);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 16px rgba(255, 106, 26, 0.35);
+  background: var(--accent);
+  color: #10120f;
+  box-shadow: var(--shadow-accent);
 }
 
-.btn--primary:hover:not(.btn--disabled) {
+.btn--primary:hover {
+  background: var(--accent-2);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(255, 106, 26, 0.5);
-  filter: brightness(1.05);
 }
 
-.btn--primary:active:not(.btn--disabled) {
+.btn--primary:active {
   transform: translateY(0);
 }
 
-.btn--tech {
-  background: var(--color-tech-gradient);
-  color: #0b0d11;
-  font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
-}
-
-.btn--tech:hover:not(.btn--disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 210, 255, 0.5);
-  filter: brightness(1.08);
-}
-
-.btn--secondary {
-  background-color: var(--color-surface-elevated);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-}
-
-.btn--secondary:hover:not(.btn--disabled) {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-text-muted);
-  transform: translateY(-1px);
-}
-
 .btn--outline {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  border-color: var(--line-2);
+  color: var(--text);
+  background: transparent;
 }
 
-.btn--outline:hover:not(.btn--disabled) {
-  background-color: rgba(255, 106, 26, 0.1);
-  box-shadow: 0 0 16px rgba(255, 106, 26, 0.2);
+.btn--outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .btn--ghost {
-  background-color: transparent;
-  color: var(--color-text-muted);
-  border: 1px solid transparent;
+  color: var(--muted);
+  background: transparent;
 }
 
-.btn--ghost:hover:not(.btn--disabled) {
-  background-color: var(--color-surface-hover);
-  color: var(--color-text);
+.btn--ghost:hover {
+  color: var(--accent);
 }
 
-.btn--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-.btn__content {
-  display: inline-flex;
-  align-items: center;
+.btn :deep(svg) {
+  width: 1.1em;
+  height: 1.1em;
 }
 </style>
